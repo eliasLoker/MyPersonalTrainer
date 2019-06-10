@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.mypersonaltrainer.R
 import com.example.mypersonaltrainer.createexercise.viewmodel.CreateExerciseViewModel
 import com.example.mypersonaltrainer.createexercise.viewmodel.CreateExerciseViewModelImpl
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 /**
  * Created by Alexandr Mikhalev on 09.06.2019.
@@ -18,13 +20,14 @@ import com.example.mypersonaltrainer.createexercise.viewmodel.CreateExerciseView
  */
 class CreateExerciseFragment : Fragment() {
 
-    private lateinit var createExerciseViewModel: CreateExerciseViewModel
+    @Inject
+    lateinit var createExerciseViewModel: CreateExerciseViewModel
 
     private var binding: com.example.mypersonaltrainer.databinding.FragmentCreateExerciseBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
-        createExerciseViewModel = ViewModelProviders.of(this).get(CreateExerciseViewModelImpl::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
