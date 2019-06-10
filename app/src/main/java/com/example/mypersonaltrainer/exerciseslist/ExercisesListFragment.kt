@@ -9,6 +9,8 @@ import com.example.mypersonaltrainer.R
 import com.example.mypersonaltrainer.createexercise.CreateExerciseFragment
 import com.example.mypersonaltrainer.exerciseslist.viewmodel.ExercisesListViewModel
 import com.example.mypersonaltrainer.exerciseslist.viewmodel.ExercisesListViewModelImpl
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 /**
  * Created by Alexandr Mikhalev on 10.06.2019.
@@ -17,13 +19,14 @@ import com.example.mypersonaltrainer.exerciseslist.viewmodel.ExercisesListViewMo
  */
 class ExercisesListFragment : Fragment() {
 
-    private lateinit var exercisesListViewModel: ExercisesListViewModel
+    @Inject
+    lateinit var exercisesListViewModel: ExercisesListViewModel
 
     private var binding: com.example.mypersonaltrainer.databinding.FragmentExercisesListBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
-        exercisesListViewModel = ViewModelProviders.of(this).get(ExercisesListViewModelImpl::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
