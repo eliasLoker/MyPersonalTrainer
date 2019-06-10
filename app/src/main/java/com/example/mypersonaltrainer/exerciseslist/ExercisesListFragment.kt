@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mypersonaltrainer.R
 import com.example.mypersonaltrainer.createexercise.CreateExerciseFragment
+import com.example.mypersonaltrainer.data.ExerciseEntity
 import com.example.mypersonaltrainer.exerciseslist.viewmodel.ExercisesListViewModel
-import com.example.mypersonaltrainer.exerciseslist.viewmodel.ExercisesListViewModelImpl
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -24,6 +27,9 @@ class ExercisesListFragment : Fragment() {
 
     private var binding: com.example.mypersonaltrainer.databinding.FragmentExercisesListBinding? = null
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var exercisesListAdapter: ExercisesListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -33,7 +39,27 @@ class ExercisesListFragment : Fragment() {
         setHasOptionsMenu(true)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_exercises_list, container, false)
         binding!!.viewModel = exercisesListViewModel
+        init()
+
+        recyclerView = binding!!.recyclerView
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = layoutManager
+
+        exercisesListAdapter = ExercisesListAdapter()
+        recyclerView.adapter = exercisesListAdapter
+
         return binding!!.root
+    }
+
+    private fun init() {
+        exercisesListViewModel.updateListEvent.observe(this, Observer { setList(it.list) })
+    }
+
+    private fun setList(exerciseList: List<ExerciseEntity>) {
+        val diffUtilExercisesList = DiffUtilExercisesList(exercisesListAdapter.data, exerciseList)
+        val diffResult = DiffUtil.calculateDiff(diffUtilExercisesList)
+        exercisesListAdapter.setList(exerciseList)
+        diffResult.dispatchUpdatesTo(exercisesListAdapter)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -42,7 +68,7 @@ class ExercisesListFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.exercises_menu_item -> goToCreateExerciseFragment()
         }
         return super.onOptionsItemSelected(item)
