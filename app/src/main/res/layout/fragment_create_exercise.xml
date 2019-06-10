@@ -14,104 +14,160 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <TextView
-                android:id="@+id/input_title_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Введите название упражнения:"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_title_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                app:errorEnabled="true"
+                app:counterEnabled="true"
+                app:counterMaxLength="20"
+                android:maxLength="20"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:hint="Пресс. Обычные скручивания"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Название упражнения. Например: пресс"
+                    android:text="@={viewModel.exerciseName}"
+                    android:textAlignment="center"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_title_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:hint="Название упражнения. Например: пресс"
+                android:text="@={viewModel.exerciseName}"
                 android:textAlignment="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_title_text_view"/>
+                app:layout_constraintTop_toTopOf="parent"/>
+        -->
 
-
-        <TextView
-                android:id="@+id/input_amount_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Введите количество подходов:"
-                android:layout_marginTop="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_title_edit_text"/>
-
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_amount_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:hint="5"
+                app:layout_constraintTop_toBottomOf="@id/input_title_edit_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+            <com.google.android.material.textfield.TextInputEditText
+                    android:hint="Количество подходов"
+                    android:text="@={viewModel.numberOfRepeat}"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_amount_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:hint="Количество подходов"
+                android:text="@={viewModel.numberOfRepeat}"
+                android:inputType="number"
                 android:textAlignment="center"
-                app:layout_constraintTop_toBottomOf="@id/input_amount_text_view"
+                app:layout_constraintTop_toBottomOf="@id/input_title_edit_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
+        -->
 
-        <TextView
-                android:id="@+id/input_amount_repetitions_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Введите количество повторений в подходе:"
-                android:layout_marginTop="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_amount_edit_text"/>
-
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_amount_repetitions_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:hint="15"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/input_amount_edit_text">
+            <com.google.android.material.textfield.TextInputEditText
+                    android:hint="Количество повторений в подходе"
+                    android:text="@={viewModel.numberOfRepetitions}"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <!--
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_amount_repetitions_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:hint="Количество повторений в подходе"
+                android:text="@={viewModel.numberOfRepetitions}"
+                android:inputType="number"
                 android:textAlignment="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_amount_repetitions_text_view"/>
+                app:layout_constraintTop_toBottomOf="@id/input_amount_edit_text"/>
+        -->
 
-        <TextView
-                android:id="@+id/input_time_of_rest_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Введите время отдыха между подходами в секундах"
-                android:layout_marginTop="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_amount_repetitions_edit_text"/>
+<com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_time_of_rest_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_amount_repetitions_edit_text">
+    <com.google.android.material.textfield.TextInputEditText
+            android:inputType="number"
+            android:hint="Время отдыха в секундах между подходами"
+            android:text="@={viewModel.timeOfRest}"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+        <!--
+        <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_time_of_rest_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:hint="50"
+                android:inputType="number"
+                android:hint="Время отдыха в секундах между подходами"
+                android:text="@={viewModel.timeOfRest}"
                 android:textAlignment="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_time_of_rest_text_view"/>
+                app:layout_constraintTop_toBottomOf="@id/input_amount_repetitions_edit_text"/>
+        -->
 
         <Button
                 android:id="@+id/create_exercise_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Создать упражнение"
+                android:onClick="@{() -> viewModel.onClickCreateExerciseButton()}"
                 android:layout_marginBottom="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
