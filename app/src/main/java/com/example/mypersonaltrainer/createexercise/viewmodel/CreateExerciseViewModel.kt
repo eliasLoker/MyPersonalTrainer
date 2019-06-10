@@ -2,6 +2,7 @@ package com.example.mypersonaltrainer.createexercise.viewmodel
 
 import androidx.databinding.ObservableField
 import com.example.mypersonaltrainer.SingleLiveEvent
+import com.example.mypersonaltrainer.createexercise.events.FragmentEvent
 import com.example.mypersonaltrainer.createexercise.events.InputErrorEvent
 
 /**
@@ -20,6 +21,8 @@ interface CreateExerciseViewModel {
     val timeOfRest: ObservableField<String>
 
     val errorInputEvent: SingleLiveEvent<InputErrorEvent>
+
+    val goToExerciseListEvent: SingleLiveEvent<FragmentEvent>
 
     fun onClickCreateExerciseButton()
 }

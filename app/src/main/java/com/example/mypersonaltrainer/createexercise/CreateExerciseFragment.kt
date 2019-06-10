@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.example.mypersonaltrainer.R
 import com.example.mypersonaltrainer.createexercise.events.InputErrorEvent
 import com.example.mypersonaltrainer.createexercise.viewmodel.CreateExerciseViewModel
+import com.example.mypersonaltrainer.exerciseslist.ExercisesListFragment
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -39,6 +40,7 @@ class CreateExerciseFragment : Fragment() {
 
     private fun init() {
         createExerciseViewModel.errorInputEvent.observe(this, Observer { setErrorMessages(it.errorType) })
+        createExerciseViewModel.goToExerciseListEvent.observe(this, Observer { goToExerciseListEvent() })
     }
 
     private fun setErrorMessages(errorType: InputErrorEvent.ErrorType) {
@@ -53,6 +55,13 @@ class CreateExerciseFragment : Fragment() {
             InputErrorEvent.ErrorType.TIME_OF_REST_ERROR
                     -> binding!!.inputTimeOfRestEditText.error = resources.getString(R.string.error_time_of_rest)
         }
+    }
+
+    private fun goToExerciseListEvent() {
+        activity!!.supportFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.fragment_activity_container, ExercisesListFragment.newInstance())
+            .commit()
     }
 
     companion object {

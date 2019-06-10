@@ -2,7 +2,7 @@
     <string name="app_name">MyPersonalTrainer</string>
 
     <string name="error_title">Название должно содержать минимум 3 символа</string>
-    <string name="error_number_of_repeat">Введите кол-во подходов</string>
-    <string name="error_number_of_repetitions">Введите кол-во повторений</string>
-    <string name="error_time_of_rest">Введите время отдыха</string>
+    <string name="error_number_of_repeat">Введите кол-во подходов. Целое число.</string>
+    <string name="error_number_of_repetitions">Введите кол-во повторений. Целое число.</string>
+    <string name="error_time_of_rest">Введите время отдыха. Целое число.</string>
 </resources>
