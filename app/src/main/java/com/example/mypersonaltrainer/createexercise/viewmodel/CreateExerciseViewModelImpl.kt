@@ -46,9 +46,9 @@ class CreateExerciseViewModelImpl(private val createExerciseInteractor: CreateEx
         val disposable = createExerciseInteractor.createExercise(exerciseEntity).subscribe{goToExerciseListEvent.postValue(FragmentEvent())}
         /*
         when {
-            exerciseName.get().equals(null) || exerciseName.get()!!.length < 3
+            programName.get().equals(null) || programName.get()!!.length < 3
             -> errorInputEvent.postValue(InputErrorEvent(InputErrorEvent.ErrorType.TITLE_ERROR))
-            numberOfRepeat.get().equals(null)
+            timeOfRest.get().equals(null)
                     -> errorInputEvent.postValue(InputErrorEvent(InputErrorEvent.ErrorType.NUMBER_OF_REPEAT_ERROR))
             numberOfRepetitions.get().equals(null)
                     -> errorInputEvent.postValue(InputErrorEvent(InputErrorEvent.ErrorType.NUMBER_OF_REPETITIONS_ERROR))

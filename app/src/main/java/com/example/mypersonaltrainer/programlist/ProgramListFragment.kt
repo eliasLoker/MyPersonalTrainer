@@ -5,6 +5,7 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.mypersonaltrainer.R
+import com.example.mypersonaltrainer.createprogram.CreateProgramFragment
 import com.example.mypersonaltrainer.programlist.viewmodel.ProgramListViewModel
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -47,7 +48,10 @@ class ProgramListFragment : Fragment() {
     }
 
     private fun goToCreateProgramFragment() {
-        TODO()
+        activity!!.supportFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.fragment_activity_container, CreateProgramFragment.newInstance())
+            .commit()
     }
 
     companion object {
