@@ -12,5 +12,9 @@ interface StartViewModel {
 
     var goToCreateExerciseEvent: SingleLiveEvent<FragmentEvent>
 
+    var goToMyTrainingsEvent: SingleLiveEvent<FragmentEvent>
+
     fun onClickCreateExerciseButton()
+
+    fun onClickMyTrainingsButton()
 }

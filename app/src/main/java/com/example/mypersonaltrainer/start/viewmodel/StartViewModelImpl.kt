@@ -12,8 +12,13 @@ import com.example.mypersonaltrainer.start.events.FragmentEvent
 class StartViewModelImpl : ViewModel(), StartViewModel {
 
     override var goToCreateExerciseEvent: SingleLiveEvent<FragmentEvent> = SingleLiveEvent()
+    override var goToMyTrainingsEvent: SingleLiveEvent<FragmentEvent> = SingleLiveEvent()
 
     override fun onClickCreateExerciseButton() {
         goToCreateExerciseEvent.postValue(FragmentEvent())
+    }
+
+    override fun onClickMyTrainingsButton() {
+        goToMyTrainingsEvent.postValue(FragmentEvent())
     }
 }

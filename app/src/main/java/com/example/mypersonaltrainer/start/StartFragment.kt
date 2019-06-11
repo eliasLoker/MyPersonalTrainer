@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.mypersonaltrainer.R
 import com.example.mypersonaltrainer.createexercise.CreateExerciseFragment
 import com.example.mypersonaltrainer.exerciseslist.ExercisesListFragment
+import com.example.mypersonaltrainer.programlist.ProgramListFragment
 import com.example.mypersonaltrainer.start.viewmodel.StartViewModel
 import com.example.mypersonaltrainer.start.viewmodel.StartViewModelImpl
 
@@ -42,12 +43,23 @@ class StartFragment : Fragment() {
         startViewModel.goToCreateExerciseEvent.observe(this, Observer {
             goToCreateExerciseFragment()
         })
+
+        startViewModel.goToMyTrainingsEvent.observe(this, Observer {
+            goToMyTrainings()
+        })
     }
 
     private fun goToCreateExerciseFragment() {
         activity!!.supportFragmentManager.beginTransaction()
             .addToBackStack(null)
             .replace(R.id.fragment_activity_container, ExercisesListFragment.newInstance())
+            .commit()
+    }
+
+    private fun goToMyTrainings() {
+        activity!!.supportFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.fragment_activity_container, ProgramListFragment.newInstance())
             .commit()
     }
 
