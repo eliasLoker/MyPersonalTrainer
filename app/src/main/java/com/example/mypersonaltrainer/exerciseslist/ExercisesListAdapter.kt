@@ -15,6 +15,7 @@ import com.example.mypersonaltrainer.data.ExerciseEntity
 class ExercisesListAdapter : RecyclerView.Adapter<ExercisesListHolder>() {
 
     var data: List<ExerciseEntity> = ArrayList()
+    lateinit var listener: OnSettingsClickListener
 
     fun setList(list: List<ExerciseEntity>) {
         data = list
@@ -34,5 +35,12 @@ class ExercisesListAdapter : RecyclerView.Adapter<ExercisesListHolder>() {
 
     override fun onBindViewHolder(holder: ExercisesListHolder, position: Int) {
         holder.bind(data[position])
+        holder.exerciseListItemBinding.editView.setOnClickListener {
+            listener.onSettingsClicked(holder.exerciseListItemBinding.exercise!!)
+        }
+    }
+
+    fun setOnSettingsClickListener(onSettingsClickListener: OnSettingsClickListener) {
+        listener = onSettingsClickListener
     }
 }

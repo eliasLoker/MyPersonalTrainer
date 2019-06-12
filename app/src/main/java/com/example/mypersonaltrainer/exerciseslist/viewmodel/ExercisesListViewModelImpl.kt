@@ -4,6 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.example.mypersonaltrainer.SingleLiveEvent
 import com.example.mypersonaltrainer.data.ExerciseEntity
+import com.example.mypersonaltrainer.exerciseslist.events.EditExerciseDialogEvent
 import com.example.mypersonaltrainer.exerciseslist.events.UpdateListEvent
 import com.example.mypersonaltrainer.exerciseslist.interactor.ExercisesListInteractor
 
@@ -21,6 +22,10 @@ class ExercisesListViewModelImpl(private val exercisesListInteractor: ExercisesL
 
     override val updateListEvent: SingleLiveEvent<UpdateListEvent> = SingleLiveEvent()
 
+    override val showEditDialogEvent: SingleLiveEvent<EditExerciseDialogEvent> = SingleLiveEvent()
+
+    private lateinit var exerciseEntityClicked: ExerciseEntity
+
     private lateinit var list: MutableList<ExerciseEntity>
 
     init {
@@ -36,5 +41,32 @@ class ExercisesListViewModelImpl(private val exercisesListInteractor: ExercisesL
                     stateProgressBar.set(false)
                 }
             }
+    }
+
+    override fun onSettingsClickedCallback(exerciseEntity: ExerciseEntity) {
+        exerciseEntityClicked = exerciseEntity
+        val longId: Long = exerciseEntity.id!!
+        val disposable = exercisesListInteractor.getById(longId)
+            .subscribe { t: ExerciseEntity? ->
+                showEditDialogEvent.postValue(EditExerciseDialogEvent(t!!))
+            }
+    }
+
+    override fun onButtonSavedClickedCallback(
+        title: String,
+        numberOfRepeat: String,
+        numberOfRepetitions: String,
+        timeOfRest: String
+    ) {
+        exerciseEntityClicked.exerciseName = title
+        exerciseEntityClicked.numberOfRepeat = numberOfRepeat.toInt()
+        exerciseEntityClicked.numberOfRepetitions = numberOfRepetitions.toInt()
+        exerciseEntityClicked.timeOfRest = timeOfRest.toInt()
+        val disposable = exercisesListInteractor.update(exerciseEntityClicked).subscribe {
+            val disposable2 = exercisesListInteractor.getAll().subscribe { t: List<ExerciseEntity>? ->
+                list = t!!.toMutableList()
+                updateListEvent.postValue(UpdateListEvent(list))
+            }
+        }
     }
 }

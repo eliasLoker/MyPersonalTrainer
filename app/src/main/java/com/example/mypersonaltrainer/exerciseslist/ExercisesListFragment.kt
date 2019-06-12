@@ -20,7 +20,7 @@ import javax.inject.Inject
  *
  * @author Alexandr Mikhalev
  */
-class ExercisesListFragment : Fragment() {
+class ExercisesListFragment : Fragment(), OnSettingsClickListener, OnClickDialogButtonsListener {
 
     @Inject
     lateinit var exercisesListViewModel: ExercisesListViewModel
@@ -48,11 +48,22 @@ class ExercisesListFragment : Fragment() {
         exercisesListAdapter = ExercisesListAdapter()
         recyclerView.adapter = exercisesListAdapter
 
+        exercisesListAdapter.setOnSettingsClickListener(this)
         return binding!!.root
     }
 
     private fun init() {
         exercisesListViewModel.updateListEvent.observe(this, Observer { setList(it.list) })
+        exercisesListViewModel.showEditDialogEvent.observe(
+            this,
+            Observer {
+                showEditDialog(
+                    it.exerciseEntity.exerciseName,
+                    it.exerciseEntity.numberOfRepeat.toString(),
+                    it.exerciseEntity.numberOfRepetitions.toString(),
+                    it.exerciseEntity.timeOfRest.toString()
+                )
+            })
     }
 
     private fun setList(exerciseList: List<ExerciseEntity>) {
@@ -79,6 +90,26 @@ class ExercisesListFragment : Fragment() {
             .addToBackStack(null)
             .replace(R.id.fragment_activity_container, CreateExerciseFragment.newInstance())
             .commit()
+    }
+
+    private fun showEditDialog(title: String, numberOfRepeat: String, numberOfRepetitions: String, timeOfRest: String) {
+        val editExerciseDialog =
+            EditExerciseDialog().newIntstance(title, numberOfRepeat, numberOfRepetitions, timeOfRest)
+        editExerciseDialog.show(childFragmentManager, "TAG")
+
+    }
+
+    override fun onSettingsClicked(exerciseEntity: ExerciseEntity) {
+        exercisesListViewModel.onSettingsClickedCallback(exerciseEntity)
+    }
+
+    override fun onButtonSavedClicked(
+        title: String,
+        numberOfRepeat: String,
+        numberOfRepetitions: String,
+        timeOfRest: String
+    ) {
+        exercisesListViewModel.onButtonSavedClickedCallback(title, numberOfRepeat, numberOfRepetitions, timeOfRest)
     }
 
     companion object {
