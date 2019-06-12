@@ -62,8 +62,8 @@ class ExercisesListViewModelImpl(private val exercisesListInteractor: ExercisesL
         exerciseEntityClicked.numberOfRepeat = numberOfRepeat.toInt()
         exerciseEntityClicked.numberOfRepetitions = numberOfRepetitions.toInt()
         exerciseEntityClicked.timeOfRest = timeOfRest.toInt()
-        val disposable = exercisesListInteractor.update(exerciseEntityClicked).subscribe {
-            val disposable2 = exercisesListInteractor.getAll().subscribe { t: List<ExerciseEntity>? ->
+        val disposableUpdate = exercisesListInteractor.update(exerciseEntityClicked).subscribe {
+            val disposableGetAll = exercisesListInteractor.getAll().subscribe { t: List<ExerciseEntity>? ->
                 list = t!!.toMutableList()
                 updateListEvent.postValue(UpdateListEvent(list))
             }
