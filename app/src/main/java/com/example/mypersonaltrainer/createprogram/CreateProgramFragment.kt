@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypersonaltrainer.R
@@ -21,7 +22,7 @@ import javax.inject.Inject
  *
  * @author Alexandr Mikhalev
  */
-class CreateProgramFragment : Fragment() {
+class CreateProgramFragment : Fragment(), OnStartDragListener {
 
     @Inject
     lateinit var createProgramViewModel: CreateProgramViewModel
@@ -30,6 +31,8 @@ class CreateProgramFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var createProgramAdapter: CreateProgramAdapter
+
+    private lateinit var itemTouchHelper: ItemTouchHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
@@ -43,11 +46,17 @@ class CreateProgramFragment : Fragment() {
 
         recyclerView = binding!!.recyclerView
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
+
         recyclerView.layoutManager = layoutManager
 
-        createProgramAdapter = CreateProgramAdapter()
+        createProgramAdapter = CreateProgramAdapter(this)
         recyclerView.adapter = createProgramAdapter
 
+        //
+        val callback = SimpleItemTouchHelperCallback(createProgramAdapter)
+        itemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+        //
         return binding!!.root
     }
 
@@ -60,6 +69,10 @@ class CreateProgramFragment : Fragment() {
         val diffResult = DiffUtil.calculateDiff(diffUtilCreateProgram)
         createProgramAdapter.setList(exerciseList)
         diffResult.dispatchUpdatesTo(createProgramAdapter)
+    }
+
+    override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
+        itemTouchHelper.startDrag(viewHolder)
     }
 
     companion object {
