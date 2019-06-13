@@ -22,7 +22,7 @@ import javax.inject.Inject
  *
  * @author Alexandr Mikhalev
  */
-class CreateProgramFragment : Fragment(), OnStartDragListener {
+class CreateProgramFragment : Fragment(), OnStartDragListener, OnMoveListListener {
 
     @Inject
     lateinit var createProgramViewModel: CreateProgramViewModel
@@ -56,6 +56,7 @@ class CreateProgramFragment : Fragment(), OnStartDragListener {
         val callback = SimpleItemTouchHelperCallback(createProgramAdapter)
         itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+        createProgramAdapter.setListener(this)
         //
         return binding!!.root
     }
@@ -73,6 +74,14 @@ class CreateProgramFragment : Fragment(), OnStartDragListener {
 
     override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
         itemTouchHelper.startDrag(viewHolder)
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        createProgramViewModel.onItemMoveCallback(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        createProgramViewModel.onItemDismissCallback(position)
     }
 
     companion object {

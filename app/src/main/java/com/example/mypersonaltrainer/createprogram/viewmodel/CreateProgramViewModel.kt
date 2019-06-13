@@ -16,4 +16,8 @@ interface CreateProgramViewModel {
     val timeOfRest: ObservableField<String>
 
     val updateListEvent: SingleLiveEvent<UpdateListEvent>
+
+    fun onItemMoveCallback(fromPosition: Int, toPosition: Int)
+
+    fun onItemDismissCallback(position: Int)
 }

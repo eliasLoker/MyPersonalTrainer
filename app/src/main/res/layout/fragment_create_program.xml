@@ -19,7 +19,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="Отметьте упражнения для создания программы тренировок, а так же расставьте упражнения в верном порядке"
+                android:text="1. Смахните свайпом лишние упражнения \n 2. Расставьте в порядке возрастания упражнения для программы"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>

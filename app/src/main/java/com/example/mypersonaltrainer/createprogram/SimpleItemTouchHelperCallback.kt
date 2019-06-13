@@ -12,11 +12,11 @@ import kotlin.math.abs
  *
  * @author Alexandr Mikhalev
  */
-class SimpleItemTouchHelperCallback(val itemTouchHelperAdapter: ItemTouchHelperAdapter) : ItemTouchHelper.Callback() {
+class SimpleItemTouchHelperCallback(private val itemTouchHelperAdapter: ItemTouchHelperAdapter) : ItemTouchHelper.Callback() {
 
     val ALPHA_FULL = 1.0f
 
-    val TAG  = "SimpleItemTouchHelper"
+    val TAG = "SimpleItemTouchHelper"
 
     override fun isLongPressDragEnabled(): Boolean {
         return true
@@ -45,7 +45,7 @@ class SimpleItemTouchHelperCallback(val itemTouchHelperAdapter: ItemTouchHelperA
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         Log.d(TAG, "onSwiped")
-        //itemTouchHelperAdapter.onItemDismiss(viewHolder.adapterPosition)
+        itemTouchHelperAdapter.onItemDismiss(viewHolder.adapterPosition)
     }
 
     override fun onChildDraw(
