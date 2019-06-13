@@ -1,8 +1,10 @@
 package com.example.mypersonaltrainer.createprogram
 
 import android.graphics.Canvas
+import android.util.Log
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.abs
 
 
 /**
@@ -14,6 +16,8 @@ class SimpleItemTouchHelperCallback(val itemTouchHelperAdapter: ItemTouchHelperA
 
     val ALPHA_FULL = 1.0f
 
+    val TAG  = "SimpleItemTouchHelper"
+
     override fun isLongPressDragEnabled(): Boolean {
         return true
     }
@@ -23,6 +27,7 @@ class SimpleItemTouchHelperCallback(val itemTouchHelperAdapter: ItemTouchHelperA
     }
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
+        Log.d(TAG, "getMovementFlags")
         val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
         val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
         return makeMovementFlags(dragFlags, swipeFlags)
@@ -33,12 +38,14 @@ class SimpleItemTouchHelperCallback(val itemTouchHelperAdapter: ItemTouchHelperA
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
+        Log.d(TAG, "onMove")
         itemTouchHelperAdapter.onItemMove(viewHolder.adapterPosition, target.adapterPosition)
         return true
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        itemTouchHelperAdapter.onItemDismiss(viewHolder.adapterPosition)
+        Log.d(TAG, "onSwiped")
+        //itemTouchHelperAdapter.onItemDismiss(viewHolder.adapterPosition)
     }
 
     override fun onChildDraw(
@@ -50,8 +57,9 @@ class SimpleItemTouchHelperCallback(val itemTouchHelperAdapter: ItemTouchHelperA
         actionState: Int,
         isCurrentlyActive: Boolean
     ) {
+        Log.d(TAG, "onChildDraw")
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-            val alpha = ALPHA_FULL - Math.abs(dX) / viewHolder.itemView.width.toFloat()
+            val alpha = ALPHA_FULL - abs(dX) / viewHolder.itemView.width.toFloat()
             viewHolder.itemView.alpha = alpha
             viewHolder.itemView.translationX = dX
         } else {
@@ -60,6 +68,7 @@ class SimpleItemTouchHelperCallback(val itemTouchHelperAdapter: ItemTouchHelperA
     }
 
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+        Log.d(TAG, "onSelectedChanged")
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
             if (viewHolder is ItemTouchHelperViewHolder) {
                 val itemViewHolder = viewHolder as ItemTouchHelperViewHolder
@@ -70,6 +79,7 @@ class SimpleItemTouchHelperCallback(val itemTouchHelperAdapter: ItemTouchHelperA
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+        Log.d(TAG, "clearView")
         super.clearView(recyclerView, viewHolder)
         viewHolder.itemView.alpha = ALPHA_FULL
         if (viewHolder is ItemTouchHelperViewHolder) {

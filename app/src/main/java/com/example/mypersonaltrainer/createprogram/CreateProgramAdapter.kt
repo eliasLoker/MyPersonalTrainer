@@ -1,8 +1,10 @@
 package com.example.mypersonaltrainer.createprogram
 
+import android.graphics.Color
+import android.util.Log
+import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MotionEventCompat
 import androidx.databinding.DataBindingUtil
@@ -11,19 +13,25 @@ import com.example.mypersonaltrainer.R
 import com.example.mypersonaltrainer.data.ExerciseEntity
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 /**
  * Created by Alexandr Mikhalev on 11.06.2019.
  *
  * @author Alexandr Mikhalev
  */
-class CreateProgramAdapter(val onStartDragListener: OnStartDragListener) : RecyclerView.Adapter<CreateProgramHolder>(),
+class CreateProgramAdapter(private val onStartDragListener: OnStartDragListener) :
+    RecyclerView.Adapter<CreateProgramHolder>(),
     ItemTouchHelperAdapter {
 
-    var data: List<ExerciseEntity> = ArrayList()
+    val TAG  = "CreateProgramAdapter"
+
+    var data = ArrayList<ExerciseEntity>().toMutableList()
+
+    var map = HashMap<Int, Int>().toMutableMap()
 
     fun setList(list: List<ExerciseEntity>) {
-        data = list
+        data = list.toMutableList()
         notifyDataSetChanged()
     }
 
@@ -41,14 +49,13 @@ class CreateProgramAdapter(val onStartDragListener: OnStartDragListener) : Recyc
     override fun onBindViewHolder(holder: CreateProgramHolder, position: Int) {
         holder.bind(data[position])
 
-        /*
-        holder.itemView.setOnTouchListener { _, event ->
-            if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-                onStartDragListener.onStartDrag(holder)
+        holder.exerciseListForProgramItemBinding.checkbox.setOnCheckedChangeListener { _, b ->
+            if (b) {
+                holder.itemView.setBackgroundColor(Color.LTGRAY)
+                Log.d(TAG, "onBindViewHolder $position")
             }
-            false
         }
-        */
+        /*
         holder.exerciseListForProgramItemBinding.nameTextView.setOnTouchListener{
                 _, event ->
             if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
@@ -56,16 +63,27 @@ class CreateProgramAdapter(val onStartDragListener: OnStartDragListener) : Recyc
             }
             false
         }
+        */
+
+        holder.exerciseListForProgramItemBinding.linesImageView.setOnTouchListener { _, event ->
+            if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                onStartDragListener.onStartDrag(holder)
+            }
+            false
+        }
+
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
+
+        Log.d(TAG, "onItemMove")
         Collections.swap(data, fromPosition, toPosition)
         notifyItemMoved(fromPosition, toPosition)
         return true
     }
 
     override fun onItemDismiss(position: Int) {
-        data.toMutableList().removeAt(position)
+        data.removeAt(position)
         notifyItemRemoved(position)
     }
 }

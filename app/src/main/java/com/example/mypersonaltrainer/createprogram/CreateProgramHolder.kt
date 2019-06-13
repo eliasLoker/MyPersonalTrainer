@@ -18,10 +18,10 @@ class CreateProgramHolder(var exerciseListForProgramItemBinding: com.example.myp
     }
 
     override fun onItemSelected() {
-        itemView.setBackgroundColor(Color.LTGRAY)
+        //itemView.setBackgroundColor(Color.LTGRAY)
     }
 
     override fun onItemClear() {
-        itemView.setBackgroundColor(0)
+        //itemView.setBackgroundColor(0)
     }
 }

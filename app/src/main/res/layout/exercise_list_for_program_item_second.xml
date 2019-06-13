@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/colorFireBrick">
+            android:background="@color/colorSteelBlue">
 
         <TextView
                 android:id="@+id/name_text_view"
