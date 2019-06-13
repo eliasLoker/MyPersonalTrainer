@@ -4,6 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.example.mypersonaltrainer.SingleLiveEvent
 import com.example.mypersonaltrainer.data.ExerciseEntity
+import com.example.mypersonaltrainer.exerciseslist.events.DeleteEvent
 import com.example.mypersonaltrainer.exerciseslist.events.EditExerciseDialogEvent
 import com.example.mypersonaltrainer.exerciseslist.events.UpdateListEvent
 import com.example.mypersonaltrainer.exerciseslist.interactor.ExercisesListInteractor
@@ -23,6 +24,8 @@ class ExercisesListViewModelImpl(private val exercisesListInteractor: ExercisesL
     override val updateListEvent: SingleLiveEvent<UpdateListEvent> = SingleLiveEvent()
 
     override val showEditDialogEvent: SingleLiveEvent<EditExerciseDialogEvent> = SingleLiveEvent()
+
+    override val showDeleteDialogEvent: SingleLiveEvent<DeleteEvent> = SingleLiveEvent()
 
     private lateinit var exerciseEntityClicked: ExerciseEntity
 
@@ -52,6 +55,11 @@ class ExercisesListViewModelImpl(private val exercisesListInteractor: ExercisesL
             }
     }
 
+    override fun onBasketClickedCallback(exerciseEntity: ExerciseEntity) {
+        exerciseEntityClicked = exerciseEntity
+        showDeleteDialogEvent.postValue(DeleteEvent(exerciseEntityClicked.exerciseName))
+    }
+
     override fun onButtonSavedClickedCallback(
         title: String,
         numberOfRepeat: String,
@@ -63,6 +71,15 @@ class ExercisesListViewModelImpl(private val exercisesListInteractor: ExercisesL
         exerciseEntityClicked.numberOfRepetitions = numberOfRepetitions.toInt()
         exerciseEntityClicked.timeOfRest = timeOfRest.toInt()
         val disposableUpdate = exercisesListInteractor.update(exerciseEntityClicked).subscribe {
+            val disposableGetAll = exercisesListInteractor.getAll().subscribe { t: List<ExerciseEntity>? ->
+                list = t!!.toMutableList()
+                updateListEvent.postValue(UpdateListEvent(list))
+            }
+        }
+    }
+
+    override fun onConfirmDeleteDialogClickedCallback() {
+        val disposableDelete = exercisesListInteractor.delete(exerciseEntityClicked).subscribe {
             val disposableGetAll = exercisesListInteractor.getAll().subscribe { t: List<ExerciseEntity>? ->
                 list = t!!.toMutableList()
                 updateListEvent.postValue(UpdateListEvent(list))
