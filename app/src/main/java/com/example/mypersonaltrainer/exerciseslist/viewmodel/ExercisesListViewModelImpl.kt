@@ -82,7 +82,15 @@ class ExercisesListViewModelImpl(private val exercisesListInteractor: ExercisesL
         val disposableDelete = exercisesListInteractor.delete(exerciseEntityClicked).subscribe {
             val disposableGetAll = exercisesListInteractor.getAll().subscribe { t: List<ExerciseEntity>? ->
                 list = t!!.toMutableList()
-                updateListEvent.postValue(UpdateListEvent(list))
+                if (list.isEmpty()) {
+                    stateRecycler.set(false)
+                    stateEmptyTextView.set(true)
+                } else {
+                    stateRecycler.set(true)
+                    stateEmptyTextView.set(false)
+                    updateListEvent.postValue(UpdateListEvent(list))
+                }
+
             }
         }
     }
