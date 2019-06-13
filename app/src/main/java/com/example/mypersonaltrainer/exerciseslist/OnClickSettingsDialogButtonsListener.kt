@@ -5,7 +5,7 @@ package com.example.mypersonaltrainer.exerciseslist
  *
  * @author Alexandr Mikhalev
  */
-interface OnClickDialogButtonsListener {
+interface OnClickSettingsDialogButtonsListener {
 
     fun onButtonSavedClicked(title: String, numberOfRepeat: String, numberOfRepetitions: String, timeOfRest: String)
 }

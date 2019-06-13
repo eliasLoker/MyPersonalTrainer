@@ -6,4 +6,6 @@
     <string name="error_number_of_repetitions">Введите кол-во повторений. Целое число.</string>
     <string name="error_time_of_rest">Введите время отдыха. Целое число.</string>
     <string name="property">%1$s \/ %2$s \/ %3$s</string>
+
+    <string name="delete_message">Вы действительно хотите удалить %1$s?</string>
 </resources>

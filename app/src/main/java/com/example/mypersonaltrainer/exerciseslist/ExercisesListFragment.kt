@@ -20,7 +20,8 @@ import javax.inject.Inject
  *
  * @author Alexandr Mikhalev
  */
-class ExercisesListFragment : Fragment(), OnSettingsClickListener, OnClickDialogButtonsListener {
+class ExercisesListFragment : Fragment(), OnItemButtonsClickListener, OnClickSettingsDialogButtonsListener,
+    OnClickDeleteDialogButtonsListener {
 
     @Inject
     lateinit var exercisesListViewModel: ExercisesListViewModel
@@ -64,6 +65,9 @@ class ExercisesListFragment : Fragment(), OnSettingsClickListener, OnClickDialog
                     it.exerciseEntity.timeOfRest.toString()
                 )
             })
+        exercisesListViewModel.showDeleteDialogEvent.observe(this, Observer {
+            showDeleteDialog(it.exerciseTitle)
+        })
     }
 
     private fun setList(exerciseList: List<ExerciseEntity>) {
@@ -99,8 +103,17 @@ class ExercisesListFragment : Fragment(), OnSettingsClickListener, OnClickDialog
 
     }
 
+    private fun showDeleteDialog(title: String) {
+        val deleteExerciseDialog = DeleteExerciseDialog().newInstance(title)
+        deleteExerciseDialog.show(childFragmentManager, "TAG2")
+    }
+
     override fun onSettingsClicked(exerciseEntity: ExerciseEntity) {
         exercisesListViewModel.onSettingsClickedCallback(exerciseEntity)
+    }
+
+    override fun onBasketClicked(exerciseEntity: ExerciseEntity) {
+        exercisesListViewModel.onBasketClickedCallback(exerciseEntity)
     }
 
     override fun onButtonSavedClicked(
@@ -110,6 +123,10 @@ class ExercisesListFragment : Fragment(), OnSettingsClickListener, OnClickDialog
         timeOfRest: String
     ) {
         exercisesListViewModel.onButtonSavedClickedCallback(title, numberOfRepeat, numberOfRepetitions, timeOfRest)
+    }
+
+    override fun onConfirmDeleteDialogClicked() {
+        exercisesListViewModel.onConfirmDeleteDialogClickedCallback()
     }
 
     companion object {

@@ -31,4 +31,10 @@ class ExercisesListInteractor(private val exerciseDao: ExerciseDao) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    fun delete(exerciseEntity: ExerciseEntity): Completable {
+        return exerciseDao.delete(exerciseEntity)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }

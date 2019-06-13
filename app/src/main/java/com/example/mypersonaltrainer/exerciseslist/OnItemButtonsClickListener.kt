@@ -7,7 +7,9 @@ import com.example.mypersonaltrainer.data.ExerciseEntity
  *
  * @author Alexandr Mikhalev
  */
-interface OnSettingsClickListener {
+interface OnItemButtonsClickListener {
 
     fun onSettingsClicked(exerciseEntity: ExerciseEntity)
+
+    fun onBasketClicked(exerciseEntity: ExerciseEntity)
 }

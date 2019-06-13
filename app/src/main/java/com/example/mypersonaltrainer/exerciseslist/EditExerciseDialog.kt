@@ -15,7 +15,7 @@ import com.google.android.material.textfield.TextInputEditText
  */
 class EditExerciseDialog : DialogFragment(), View.OnClickListener {
 
-    private lateinit var onClickDialogButtonsListener: OnClickDialogButtonsListener
+    private lateinit var onClickSettingsDialogButtonsListener: OnClickSettingsDialogButtonsListener
 
     private lateinit var titleEditText: TextInputEditText
     private lateinit var numberOfRepeatEditText: TextInputEditText
@@ -42,8 +42,8 @@ class EditExerciseDialog : DialogFragment(), View.OnClickListener {
         numberOfRepetitions = arguments!!.getString(KEY_FOR_NUMBER_OF_REPETITIONS)!!
         timeOfRest = arguments!!.getString(KEY_FOR_TIME_OF_REST)!!
 
-        if (parentFragment is OnClickDialogButtonsListener) {
-            onClickDialogButtonsListener = parentFragment as OnClickDialogButtonsListener
+        if (parentFragment is OnClickSettingsDialogButtonsListener) {
+            onClickSettingsDialogButtonsListener = parentFragment as OnClickSettingsDialogButtonsListener
         }
     }
 
@@ -87,7 +87,7 @@ class EditExerciseDialog : DialogFragment(), View.OnClickListener {
         when (p0!!.id) {
             R.id.close_image_view -> dismiss()
             R.id.save_button -> {
-                onClickDialogButtonsListener.onButtonSavedClicked(
+                onClickSettingsDialogButtonsListener.onButtonSavedClicked(
                     titleEditText.text.toString(),
                     numberOfRepeatEditText.text.toString(),
                     repetitionsEditText.text.toString(),

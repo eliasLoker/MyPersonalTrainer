@@ -3,6 +3,7 @@ package com.example.mypersonaltrainer.exerciseslist.viewmodel
 import androidx.databinding.ObservableField
 import com.example.mypersonaltrainer.SingleLiveEvent
 import com.example.mypersonaltrainer.data.ExerciseEntity
+import com.example.mypersonaltrainer.exerciseslist.events.DeleteEvent
 import com.example.mypersonaltrainer.exerciseslist.events.EditExerciseDialogEvent
 import com.example.mypersonaltrainer.exerciseslist.events.UpdateListEvent
 
@@ -23,7 +24,11 @@ interface ExercisesListViewModel {
 
     val showEditDialogEvent: SingleLiveEvent<EditExerciseDialogEvent>
 
+    val showDeleteDialogEvent: SingleLiveEvent<DeleteEvent>
+
     fun onSettingsClickedCallback(exerciseEntity: ExerciseEntity)
+
+    fun onBasketClickedCallback(exerciseEntity: ExerciseEntity)
 
     fun onButtonSavedClickedCallback(
         title: String,
@@ -31,4 +36,6 @@ interface ExercisesListViewModel {
         numberOfRepetitions: String,
         timeOfRest: String
     )
+
+    fun onConfirmDeleteDialogClickedCallback()
 }

@@ -1,9 +1,6 @@
 package com.example.mypersonaltrainer.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -27,4 +24,7 @@ interface ExerciseDao {
 
     @Update
     fun update(exerciseEntity: ExerciseEntity): Completable
+
+    @Delete
+    fun delete(exerciseEntity: ExerciseEntity): Completable
 }
