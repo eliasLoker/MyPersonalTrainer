@@ -98,7 +98,7 @@ class ExercisesListFragment : Fragment(), OnItemButtonsClickListener, OnClickSet
 
     private fun showEditDialog(title: String, numberOfRepeat: String, numberOfRepetitions: String, timeOfRest: String) {
         val editExerciseDialog =
-            EditExerciseDialog().newIntstance(title, numberOfRepeat, numberOfRepetitions, timeOfRest)
+            EditExerciseDialog().newInstance(title, numberOfRepeat, numberOfRepetitions, timeOfRest)
         editExerciseDialog.show(childFragmentManager, "TAG")
 
     }

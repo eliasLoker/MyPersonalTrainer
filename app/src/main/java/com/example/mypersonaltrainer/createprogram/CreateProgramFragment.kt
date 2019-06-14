@@ -22,7 +22,7 @@ import javax.inject.Inject
  *
  * @author Alexandr Mikhalev
  */
-class CreateProgramFragment : Fragment(), OnStartDragListener, OnMoveListListener {
+class CreateProgramFragment : Fragment(), OnStartDragListener, OnMoveListListener, OnCreateProgramDialogListener {
 
     @Inject
     lateinit var createProgramViewModel: CreateProgramViewModel
@@ -63,6 +63,13 @@ class CreateProgramFragment : Fragment(), OnStartDragListener, OnMoveListListene
 
     private fun init() {
         createProgramViewModel.updateListEvent.observe(this, Observer { setList(it.list) })
+
+        createProgramViewModel.showDialogEvent.observe(this, Observer { showDialog() })
+    }
+
+    private fun showDialog() {
+        val createProgramDialog = CreateProgramDialog().newInstance()
+        createProgramDialog.show(childFragmentManager, "TAGGG")
     }
 
     private fun setList(exerciseList: List<ExerciseEntity>) {
@@ -82,6 +89,10 @@ class CreateProgramFragment : Fragment(), OnStartDragListener, OnMoveListListene
 
     override fun onItemDismiss(position: Int) {
         createProgramViewModel.onItemDismissCallback(position)
+    }
+
+    override fun onClickSaveButton(programName: String, timeOfRest: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     companion object {

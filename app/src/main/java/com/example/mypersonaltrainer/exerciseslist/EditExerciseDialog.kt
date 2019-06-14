@@ -98,7 +98,7 @@ class EditExerciseDialog : DialogFragment(), View.OnClickListener {
         }
     }
 
-    fun newIntstance(
+    fun newInstance(
         title: String,
         numberOfRepeat: String,
         numberOfRepetitions: String,
