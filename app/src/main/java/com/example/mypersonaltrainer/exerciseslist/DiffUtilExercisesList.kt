@@ -1,7 +1,7 @@
 package com.example.mypersonaltrainer.exerciseslist
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.mypersonaltrainer.data.ExerciseEntity
+import com.example.mypersonaltrainer.data.exercise.ExerciseEntity
 
 /**
  * Created by Alexandr Mikhalev on 10.06.2019.

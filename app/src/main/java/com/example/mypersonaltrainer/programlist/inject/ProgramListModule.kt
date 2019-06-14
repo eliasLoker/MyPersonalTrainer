@@ -1,7 +1,7 @@
 package com.example.mypersonaltrainer.programlist.inject
 
 import androidx.lifecycle.ViewModelProviders
-import com.example.mypersonaltrainer.data.ExerciseDao
+import com.example.mypersonaltrainer.data.exercise.ExerciseDao
 import com.example.mypersonaltrainer.programlist.ProgramListFragment
 import com.example.mypersonaltrainer.programlist.interactor.ProgramListInteractor
 import com.example.mypersonaltrainer.programlist.viewmodel.ProgramListFactory

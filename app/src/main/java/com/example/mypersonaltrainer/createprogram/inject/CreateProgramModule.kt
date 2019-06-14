@@ -6,7 +6,8 @@ import com.example.mypersonaltrainer.createprogram.interactor.CreateProgramInter
 import com.example.mypersonaltrainer.createprogram.viewmodel.CreateProgramFactory
 import com.example.mypersonaltrainer.createprogram.viewmodel.CreateProgramViewModel
 import com.example.mypersonaltrainer.createprogram.viewmodel.CreateProgramViewModelImpl
-import com.example.mypersonaltrainer.data.ExerciseDao
+import com.example.mypersonaltrainer.data.exercise.ExerciseDao
+import com.example.mypersonaltrainer.data.program.ProgramDao
 import dagger.Module
 import dagger.Provides
 
@@ -20,7 +21,7 @@ class CreateProgramModule {
 
     @CreateProgramScope
     @Provides
-    fun provideCreateProgramInteractor(exerciseDao: ExerciseDao) = CreateProgramInteractor(exerciseDao)
+    fun provideCreateProgramInteractor(exerciseDao: ExerciseDao, programDao: ProgramDao) = CreateProgramInteractor(exerciseDao, programDao)
 
     @CreateProgramScope
     @Provides

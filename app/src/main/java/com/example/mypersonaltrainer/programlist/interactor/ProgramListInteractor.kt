@@ -1,6 +1,6 @@
 package com.example.mypersonaltrainer.programlist.interactor
 
-import com.example.mypersonaltrainer.data.ExerciseDao
+import com.example.mypersonaltrainer.data.exercise.ExerciseDao
 
 /**
  * Created by Alexandr Mikhalev on 11.06.2019.

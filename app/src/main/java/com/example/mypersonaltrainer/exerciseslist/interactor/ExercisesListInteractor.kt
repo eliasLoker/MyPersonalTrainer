@@ -1,7 +1,7 @@
 package com.example.mypersonaltrainer.exerciseslist.interactor
 
-import com.example.mypersonaltrainer.data.ExerciseDao
-import com.example.mypersonaltrainer.data.ExerciseEntity
+import com.example.mypersonaltrainer.data.exercise.ExerciseDao
+import com.example.mypersonaltrainer.data.exercise.ExerciseEntity
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

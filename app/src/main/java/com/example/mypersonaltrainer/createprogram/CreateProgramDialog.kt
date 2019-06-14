@@ -55,6 +55,7 @@ class CreateProgramDialog : DialogFragment(), View.OnClickListener {
         when (p0!!.id) {
             R.id.save_button -> {
                 listener.onClickSaveButton(titleEditText.text.toString(), timeOfRestEditText.text.toString())
+                dismiss()
             }
         }
     }

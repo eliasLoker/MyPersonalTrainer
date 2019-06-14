@@ -7,8 +7,10 @@ import com.example.mypersonaltrainer.SingleLiveEvent
 import com.example.mypersonaltrainer.createprogram.events.DialogEvent
 import com.example.mypersonaltrainer.createprogram.events.UpdateListEvent
 import com.example.mypersonaltrainer.createprogram.interactor.CreateProgramInteractor
-import com.example.mypersonaltrainer.data.ExerciseEntity
+import com.example.mypersonaltrainer.data.exercise.ExerciseEntity
+import com.example.mypersonaltrainer.data.program.ProgramEntity
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by Alexandr Mikhalev on 11.06.2019.
@@ -58,7 +60,14 @@ class CreateProgramViewModelImpl(private val createProgramInteractor: CreateProg
     }
 
     override fun onClickSaveButtonCallback(programName: String, timeOfRest: String) {
-
+        val idList = ArrayList<Long>()
+        for (i in list) {
+            idList.add(i.id!!)
+        }
+        val programEntity = ProgramEntity(programName, idList, timeOfRest.toInt())
+        val disposableInsert = createProgramInteractor.insertProgram(programEntity).subscribe {
+            Log.d("RECORD", "REC SUCCESS")
+        }
     }
 
     override fun onClickCreateProgram() {

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypersonaltrainer.R
 import com.example.mypersonaltrainer.createexercise.CreateExerciseFragment
-import com.example.mypersonaltrainer.data.ExerciseEntity
+import com.example.mypersonaltrainer.data.exercise.ExerciseEntity
 import com.example.mypersonaltrainer.exerciseslist.viewmodel.ExercisesListViewModel
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject

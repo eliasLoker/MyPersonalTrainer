@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypersonaltrainer.R
 import com.example.mypersonaltrainer.createprogram.viewmodel.CreateProgramViewModel
-import com.example.mypersonaltrainer.data.ExerciseEntity
+import com.example.mypersonaltrainer.data.exercise.ExerciseEntity
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -92,7 +92,7 @@ class CreateProgramFragment : Fragment(), OnStartDragListener, OnMoveListListene
     }
 
     override fun onClickSaveButton(programName: String, timeOfRest: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        createProgramViewModel.onClickSaveButtonCallback(programName, timeOfRest)
     }
 
     companion object {

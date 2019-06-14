@@ -3,7 +3,7 @@ package com.example.mypersonaltrainer.exerciseslist.viewmodel
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.example.mypersonaltrainer.SingleLiveEvent
-import com.example.mypersonaltrainer.data.ExerciseEntity
+import com.example.mypersonaltrainer.data.exercise.ExerciseEntity
 import com.example.mypersonaltrainer.exerciseslist.events.DeleteEvent
 import com.example.mypersonaltrainer.exerciseslist.events.EditExerciseDialogEvent
 import com.example.mypersonaltrainer.exerciseslist.events.UpdateListEvent

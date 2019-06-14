@@ -1,4 +1,4 @@
-package com.example.mypersonaltrainer.data
+package com.example.mypersonaltrainer.data.exercise
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -5,7 +5,7 @@
     <data>
         <variable
                 name="exercise"
-                type="com.example.mypersonaltrainer.data.ExerciseEntity"/>
+                type="com.example.mypersonaltrainer.data.exercise.ExerciseEntity"/>
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

@@ -6,7 +6,7 @@ import com.example.mypersonaltrainer.createexercise.interactor.CreateExerciseInt
 import com.example.mypersonaltrainer.createexercise.viewmodel.CreateExerciseFactory
 import com.example.mypersonaltrainer.createexercise.viewmodel.CreateExerciseViewModel
 import com.example.mypersonaltrainer.createexercise.viewmodel.CreateExerciseViewModelImpl
-import com.example.mypersonaltrainer.data.ExerciseDao
+import com.example.mypersonaltrainer.data.exercise.ExerciseDao
 import dagger.Module
 import dagger.Provides
 
