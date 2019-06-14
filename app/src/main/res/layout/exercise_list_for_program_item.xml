@@ -20,16 +20,40 @@
 
         <TextView
                 android:id="@+id/name_text_view"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@{exercise.exerciseName}"
                 android:textSize="30sp"
                 android:textAlignment="center"
+                android:textColor="@color/colorWhite"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/lines_image_view"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="AFFASFAFFASF"/>
+
+        <TextView
+                android:id="@+id/header_details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Подходы/Повторения/Время отдыха"
+                android:textSize="15sp"
+                android:textColor="@color/colorGainsboro"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/name_text_view"
+                app:layout_constraintTop_toBottomOf="@id/name_text_view"/>
+
+        <TextView
+                android:id="@+id/details_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGainsboro"
+                android:textSize="20sp"
+                android:text="@{@string/property(exercise.numberOfRepeat, exercise.numberOfRepetitions, exercise.timeOfRest)}"
+                app:layout_constraintStart_toStartOf="@id/header_details_text_view"
+                app:layout_constraintEnd_toEndOf="@id/header_details_text_view"
+                app:layout_constraintTop_toBottomOf="@id/header_details_text_view"
+                tools:text="25/18/32"/>
 
         <ImageView
                 android:id="@+id/lines_image_view"
@@ -47,10 +71,10 @@
                 android:background="@color/colorBlack"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name_text_view"/>
+                app:layout_constraintTop_toBottomOf="@id/details_text_view"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
