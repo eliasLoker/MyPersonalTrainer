@@ -2,6 +2,7 @@ package com.example.mypersonaltrainer.programlist.inject
 
 import androidx.lifecycle.ViewModelProviders
 import com.example.mypersonaltrainer.data.exercise.ExerciseDao
+import com.example.mypersonaltrainer.data.program.ProgramDao
 import com.example.mypersonaltrainer.programlist.ProgramListFragment
 import com.example.mypersonaltrainer.programlist.interactor.ProgramListInteractor
 import com.example.mypersonaltrainer.programlist.viewmodel.ProgramListFactory
@@ -20,7 +21,7 @@ class ProgramListModule {
 
     @ProgramListScope
     @Provides
-    fun provideProgramListInteractor(exerciseDao: ExerciseDao) = ProgramListInteractor(exerciseDao)
+    fun provideProgramListInteractor(programDao: ProgramDao) = ProgramListInteractor(programDao)
 
     @ProgramListScope
     @Provides
