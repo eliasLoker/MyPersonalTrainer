@@ -12,6 +12,7 @@ import com.example.mypersonaltrainer.R
 import com.example.mypersonaltrainer.createprogram.CreateProgramFragment
 import com.example.mypersonaltrainer.data.program.ProgramEntity
 import com.example.mypersonaltrainer.programlist.viewmodel.ProgramListViewModel
+import com.example.mypersonaltrainer.training.TrainingFragment
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -20,7 +21,7 @@ import javax.inject.Inject
  *
  * @author Alexandr Mikhalev
  */
-class ProgramListFragment : Fragment() {
+class ProgramListFragment : Fragment(), OnClickProgramListItemListener {
 
     @Inject
     lateinit var programListViewModel: ProgramListViewModel
@@ -48,13 +49,14 @@ class ProgramListFragment : Fragment() {
 
         programListAdapter = ProgramListAdapter()
         recyclerView.adapter = programListAdapter
-
+        programListAdapter.setonClickProgramListItemListener(this)
         //
         return binding!!.root
     }
 
     private fun init() {
         programListViewModel.updateListEvent.observe(this, Observer { setList(it.list) })
+        programListViewModel.goToTrainingEvent.observe(this, Observer { goToTraining(it.id) })
     }
 
     private fun setList(programList: List<ProgramEntity>) {
@@ -62,6 +64,13 @@ class ProgramListFragment : Fragment() {
         val diffResult = DiffUtil.calculateDiff(diffUtilProgramList)
         programListAdapter.setList(programList)
         diffResult.dispatchUpdatesTo(programListAdapter)
+    }
+
+    private fun goToTraining(id: Long) {
+        activity!!.supportFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.fragment_activity_container, TrainingFragment.newInstance(id))
+            .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -81,6 +90,10 @@ class ProgramListFragment : Fragment() {
             .addToBackStack(null)
             .replace(R.id.fragment_activity_container, CreateProgramFragment.newInstance())
             .commit()
+    }
+
+    override fun onClickStartButton(id: Long) {
+        programListViewModel.onClickStartButtonCallback(id)
     }
 
     companion object {

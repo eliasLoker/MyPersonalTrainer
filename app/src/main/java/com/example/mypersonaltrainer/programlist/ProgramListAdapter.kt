@@ -16,9 +16,15 @@ class ProgramListAdapter : RecyclerView.Adapter<ProgramListHolder>() {
 
     var data: List<ProgramEntity> = ArrayList()
 
+    lateinit var listener: OnClickProgramListItemListener
+
     fun setList(list: List<ProgramEntity>) {
         data = list
         notifyDataSetChanged()
+    }
+
+    fun setonClickProgramListItemListener (onClickProgramListItemListener: OnClickProgramListItemListener) {
+        listener = onClickProgramListItemListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProgramListHolder {
@@ -34,5 +40,8 @@ class ProgramListAdapter : RecyclerView.Adapter<ProgramListHolder>() {
 
     override fun onBindViewHolder(holder: ProgramListHolder, position: Int) {
         holder.bind(data[position])
+        holder.programListItemBinding.startImageView.setOnClickListener {
+            listener.onClickStartButton(holder.programListItemBinding.program!!.id!!)
+        }
     }
 }

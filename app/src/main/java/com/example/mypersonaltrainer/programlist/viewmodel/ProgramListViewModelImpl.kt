@@ -4,6 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.example.mypersonaltrainer.SingleLiveEvent
 import com.example.mypersonaltrainer.data.program.ProgramEntity
+import com.example.mypersonaltrainer.programlist.events.FragmentEvent
 import com.example.mypersonaltrainer.programlist.events.UpdateListEvent
 import com.example.mypersonaltrainer.programlist.interactor.ProgramListInteractor
 
@@ -20,6 +21,8 @@ class ProgramListViewModelImpl(private val programListInteractor: ProgramListInt
 
     override val updateListEvent: SingleLiveEvent<UpdateListEvent> = SingleLiveEvent()
 
+    override val goToTrainingEvent: SingleLiveEvent<FragmentEvent> = SingleLiveEvent()
+
     private lateinit var list: MutableList<ProgramEntity>
 
     init {
@@ -35,5 +38,9 @@ class ProgramListViewModelImpl(private val programListInteractor: ProgramListInt
                     stateProgressBar.set(false)
                 }
         }
+    }
+
+    override fun onClickStartButtonCallback(id: Long) {
+        goToTrainingEvent.postValue(FragmentEvent(id))
     }
 }

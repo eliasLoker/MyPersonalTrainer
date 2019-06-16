@@ -12,6 +12,9 @@ import com.example.mypersonaltrainer.exerciseslist.inject.ExercisesListScope
 import com.example.mypersonaltrainer.programlist.ProgramListFragment
 import com.example.mypersonaltrainer.programlist.inject.ProgramListModule
 import com.example.mypersonaltrainer.programlist.inject.ProgramListScope
+import com.example.mypersonaltrainer.training.TrainingFragment
+import com.example.mypersonaltrainer.training.inject.TrainingModule
+import com.example.mypersonaltrainer.training.inject.TrainingScope
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -37,5 +40,9 @@ interface FragmentBuilder {
 
     @ContributesAndroidInjector(modules = [CreateProgramModule::class])
     @CreateProgramScope
-    fun contributeCreateProgram() : CreateProgramFragment
+    fun contributeCreateProgramFragment() : CreateProgramFragment
+
+    @ContributesAndroidInjector(modules = [TrainingModule::class])
+    @TrainingScope
+    fun contributeTrainingFragment() : TrainingFragment
 }

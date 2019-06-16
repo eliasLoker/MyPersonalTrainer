@@ -2,6 +2,7 @@ package com.example.mypersonaltrainer.programlist.viewmodel
 
 import androidx.databinding.ObservableField
 import com.example.mypersonaltrainer.SingleLiveEvent
+import com.example.mypersonaltrainer.programlist.events.FragmentEvent
 import com.example.mypersonaltrainer.programlist.events.UpdateListEvent
 
 /**
@@ -18,4 +19,8 @@ interface ProgramListViewModel {
     val stateEmptyTextView: ObservableField<Boolean>
 
     val updateListEvent: SingleLiveEvent<UpdateListEvent>
+
+    val goToTrainingEvent: SingleLiveEvent<FragmentEvent>
+
+    fun onClickStartButtonCallback(id: Long)
 }
