@@ -1,15 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
                 name="viewModel"
                 type="com.example.mypersonaltrainer.training.viewmodel.TrainingViewModel"/>
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorFireBrick">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+        <TextView
+                android:id="@+id/program_name_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/colorBlack"
+                android:background="@color/colorFireBrick"
+                android:textAlignment="center"
+                android:text="@{viewModel.programName}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Proga 1"/>
+
+        <TextView
+                android:id="@+id/exercise_title_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Текущее упражнение и подходы:"
+                android:textColor="@color/colorBlack"
+                android:background="@color/colorFireBrick"
+                android:textAlignment="center"
+                android:textSize="25sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/program_name_text_view"/>
+
+        <TextView
+                android:id="@+id/current_exercise_name_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.currentExercise}"
+                android:textColor="@color/colorBlack"
+                android:background="@color/colorFireBrick"
+                android:textAlignment="center"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/exercise_title_text_view"
+                tools:text="Ghghghg"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:background="@color/colorFireBrick"
+                android:clipToPadding="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/current_exercise_name_text_view">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

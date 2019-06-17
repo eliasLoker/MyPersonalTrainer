@@ -10,9 +10,9 @@ import org.jetbrains.annotations.NotNull
  *
  * @author Alexandr Mikhalev
  */
-class TrainingFactory(private val trainingInteractor: TrainingInteractor) : ViewModelProvider.NewInstanceFactory() {
+class TrainingFactory(private val trainingInteractor: TrainingInteractor,  private val programId: Long) : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(@NotNull modelClass: Class<T>): T {
-        return TrainingViewModelImpl(trainingInteractor) as T
+        return TrainingViewModelImpl(trainingInteractor, programId) as T
     }
 }

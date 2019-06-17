@@ -6,9 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.example.mypersonaltrainer.R
 import com.example.mypersonaltrainer.databinding.FragmentTrainingBinding
+import com.example.mypersonaltrainer.training.interactor.TrainingInteractor
+import com.example.mypersonaltrainer.training.viewmodel.TrainingFactory
 import com.example.mypersonaltrainer.training.viewmodel.TrainingViewModel
+import com.example.mypersonaltrainer.training.viewmodel.TrainingViewModelImpl
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -19,15 +23,25 @@ import javax.inject.Inject
  */
 class TrainingFragment : Fragment() {
 
+    /*
     @Inject
     lateinit var trainingViewModel: TrainingViewModel
+    */
+    @Inject
+    lateinit var trainingInteractor: TrainingInteractor
+
+    lateinit var trainingViewModel: TrainingViewModel
+
+    lateinit var trainingFactory: TrainingFactory
 
     private var binding: FragmentTrainingBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
-        arguments!!.getLong(KEY)
+        val id = arguments!!.getLong(KEY)
+        trainingFactory = TrainingFactory(trainingInteractor, id)
+        trainingViewModel = ViewModelProviders.of(this, trainingFactory).get(TrainingViewModelImpl::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

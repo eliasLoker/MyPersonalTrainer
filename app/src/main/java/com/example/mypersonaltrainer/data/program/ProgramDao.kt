@@ -17,6 +17,9 @@ interface ProgramDao {
     @Query("SELECT * FROM ProgramEntity")
     fun getAll(): Single<List<ProgramEntity>>
 
+    @Query("SELECT * FROM ProgramEntity WHERE id = :id")
+    fun getById(id: Long): Single<ProgramEntity>
+
     @Insert
     fun insert(programEntity: ProgramEntity): Completable
 }

@@ -24,6 +24,7 @@ class TrainingModule {
     fun provideTrainingInteractor(exerciseDao: ExerciseDao, programDao: ProgramDao) =
         TrainingInteractor(exerciseDao, programDao)
 
+    /*
     @Provides
     @TrainingScope
     fun provideTrainingFactory(trainingInteractor: TrainingInteractor) = TrainingFactory(trainingInteractor)
@@ -33,4 +34,5 @@ class TrainingModule {
     fun provideTraining(trainingFragment: TrainingFragment, trainingFactory: TrainingFactory) : TrainingViewModel {
         return ViewModelProviders.of(trainingFragment, trainingFactory).get(TrainingViewModelImpl::class.java)
     }
+    */
 }
