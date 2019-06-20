@@ -69,12 +69,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/background_buttons_view"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="AFFASFAFFASF"/>
+                tools:text="A"/>
 
         <TableLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:stretchColumns="*"
                 android:paddingBottom="10dp"
                 app:layout_constraintStart_toStartOf="@id/name_text_view"
                 app:layout_constraintEnd_toEndOf="@id/name_text_view"
@@ -83,6 +82,8 @@
             <TableRow>
 
                 <TextView
+                        android:width="0dp"
+                        android:layout_weight="1"
                         android:text="@{String.valueOf(exercise.numberOfRepeat)}"
                         android:textAlignment="center"
                         android:textColor="@color/colorBlack"
@@ -90,6 +91,8 @@
                         tools:text="30"/>
 
                 <TextView
+                        android:width="0dp"
+                        android:layout_weight="1"
                         android:text="@{String.valueOf(exercise.numberOfRepetitions)}"
                         android:textAlignment="center"
                         android:textColor="@color/colorBlack"
@@ -97,6 +100,8 @@
                         tools:text="30"/>
 
                 <TextView
+                        android:width="0dp"
+                        android:layout_weight="1"
                         android:text="@{String.valueOf(exercise.timeOfRest)}"
                         android:textAlignment="center"
                         android:textColor="@color/colorBlack"
@@ -107,16 +112,22 @@
             <TableRow>
 
                 <TextView
+                        android:width="0dp"
+                        android:layout_weight="1"
                         android:textSize="12sp"
                         android:textAlignment="center"
                         android:text="Количество\nподходов"/>
 
                 <TextView
+                        android:width="0dp"
+                        android:layout_weight="1"
                         android:textSize="12sp"
                         android:textAlignment="center"
                         android:text="Количество\nповторений"/>
 
                 <TextView
+                        android:width="0dp"
+                        android:layout_weight="1"
                         android:textSize="12sp"
                         android:textAlignment="center"
                         android:text="Время\nотдыха"/>
