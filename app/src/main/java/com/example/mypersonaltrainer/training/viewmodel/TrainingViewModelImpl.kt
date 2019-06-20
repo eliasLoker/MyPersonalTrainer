@@ -1,6 +1,5 @@
 package com.example.mypersonaltrainer.training.viewmodel
 
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.example.mypersonaltrainer.SingleLiveEvent
@@ -10,6 +9,7 @@ import com.example.mypersonaltrainer.training.events.TrainingOffEvent
 import com.example.mypersonaltrainer.training.events.UpdateListEvent
 import com.example.mypersonaltrainer.training.interactor.TrainingInteractor
 import io.reactivex.Observer
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 /**
@@ -20,14 +20,21 @@ import io.reactivex.disposables.Disposable
 class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, private val programId: Long) :
     ViewModel(), TrainingViewModel {
 
+    private val strForTraining = "Сделай повторения и нажми на кнопку отдыха:"
+    private val strForRest = "Жди когда таймер закончится"
+
     override val programName: ObservableField<String> = ObservableField()
     override val currentExerciseName: ObservableField<String> = ObservableField()
-    override val instruction: ObservableField<String> = ObservableField("Сделай повторения и нажми на кнопку отдыха")
+    override val instruction: ObservableField<String> = ObservableField(strForTraining)
     override val counter: ObservableField<String> = ObservableField()
+
+    override val restButtonState: ObservableField<Boolean> = ObservableField(true)
 
     override val updateListEvent: SingleLiveEvent<UpdateListEvent> = SingleLiveEvent()
 
     override val trainingOffEvent: SingleLiveEvent<TrainingOffEvent> = SingleLiveEvent()
+
+    private val compositeDisposable = CompositeDisposable()
 
     private var indexOfCurrentExercise: Int = 0
     private var indexOfCurrentProgram: Int = 0
@@ -35,6 +42,7 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
     private var exerciseListForRecycler = ArrayList<Long>()
     private var timeOfRestProgram: Long = 0L
     private var timeOfRestExercise: Long = 0L
+    private var numberOfRepetitions: Int = 0
 
     init {
         val disposableGetById =
@@ -46,36 +54,24 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
                 val disposableGetEx =
                     trainingInteractor.getExerciseById(idListExercises[indexOfCurrentProgram])
                         .subscribe { exerciseEntity: ExerciseEntity ->
-                            currentExerciseName.set(exerciseEntity.exerciseName)
-                            //indexOfCurrentProgram++
-                            for (i in 1..exerciseEntity.numberOfRepetitions) {
-                                exerciseListForRecycler.add(i.toLong())
-                            }
-                            counter.set(exerciseEntity.numberOfRepetitions.toString())
-                            timeOfRestExercise = exerciseEntity.timeOfRest.toLong()
-                            updateListEvent.postValue(UpdateListEvent(exerciseListForRecycler, indexOfCurrentExercise))
+                            initFields(exerciseEntity)
                         }
+                compositeDisposable.add(disposableGetEx)
             }
+        compositeDisposable.addAll(disposableGetById)
     }
 
     override fun onClickStartRestButton() {
-        Log.d("TVM", "indexOfCurrentProgram $indexOfCurrentProgram")
-        Log.d("TVM", "indexOfCurrentExercise $indexOfCurrentExercise")
-        Log.d("TVM", "idListExercises.size ${idListExercises.size}")
-        Log.d("TVM", "exerciseListForRecycler.size ${exerciseListForRecycler.size}")
         if (indexOfCurrentProgram == idListExercises.size - 1 &&
             indexOfCurrentExercise == exerciseListForRecycler.size - 1
         ) {
             trainingOffEvent.postValue(TrainingOffEvent("Тренировка закончилась"))
-            Log.d("TVM", "if 1")
             return
         }
         if (indexOfCurrentExercise == exerciseListForRecycler.size - 1) {
             startRestBetweenPrograms()
-            Log.d("TVM", "if 2")
             return
         }
-        Log.d("TVM", "not if")
         startRestBetweenRepetitions()
     }
 
@@ -85,10 +81,14 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
                 //goToNextRepetition()
                 indexOfCurrentExercise += 1
                 updateListEvent.postValue(UpdateListEvent(exerciseListForRecycler, indexOfCurrentExercise))
+                instruction.set(strForTraining)
+                counter.set(numberOfRepetitions.toString())
+                restButtonState.set(true)
             }
 
             override fun onSubscribe(d: Disposable) {
-
+                instruction.set(strForRest)
+                restButtonState.set(false)
             }
 
             override fun onNext(t: Long) {
@@ -104,11 +104,15 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
     private fun startRestBetweenPrograms() {
         trainingInteractor.getTimer(timeOfRestProgram).subscribe(object : Observer<Long> {
             override fun onComplete() {
+                instruction.set(strForTraining)
+                counter.set(numberOfRepetitions.toString())
                 loadNextProgram()
+                restButtonState.set(true)
             }
 
             override fun onSubscribe(d: Disposable) {
-
+                instruction.set(strForRest)
+                restButtonState.set(false)
             }
 
             override fun onNext(t: Long) {
@@ -129,15 +133,27 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
                 val disposableGetEx =
                     trainingInteractor.getExerciseById(idListExercises[indexOfCurrentProgram])
                         .subscribe { exerciseEntity: ExerciseEntity ->
-                            currentExerciseName.set(exerciseEntity.exerciseName)
-                            exerciseListForRecycler.clear()
-                            for (i in 1..exerciseEntity.numberOfRepetitions) {
-                                exerciseListForRecycler.add(i.toLong())
-                            }
-                            counter.set(exerciseEntity.numberOfRepetitions.toString())
-                            timeOfRestExercise = exerciseEntity.timeOfRest.toLong()
-                            updateListEvent.postValue(UpdateListEvent(exerciseListForRecycler, indexOfCurrentExercise))
+                            initFields(exerciseEntity)
                         }
+                compositeDisposable.add(disposableGetEx)
             }
+        compositeDisposable.add(disposableGetById)
+    }
+
+    private fun initFields(exerciseEntity: ExerciseEntity) {
+        currentExerciseName.set(exerciseEntity.exerciseName)
+        numberOfRepetitions = exerciseEntity.numberOfRepetitions
+        exerciseListForRecycler.clear()
+        for (i in 1..exerciseEntity.numberOfRepeat) {
+            exerciseListForRecycler.add(i.toLong())
+        }
+        counter.set(exerciseEntity.numberOfRepetitions.toString())
+        timeOfRestExercise = exerciseEntity.timeOfRest.toLong()
+        updateListEvent.postValue(UpdateListEvent(exerciseListForRecycler, indexOfCurrentExercise))
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
     }
 }

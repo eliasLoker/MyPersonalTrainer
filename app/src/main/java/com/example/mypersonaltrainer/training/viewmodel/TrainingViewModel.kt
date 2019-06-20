@@ -20,6 +20,8 @@ interface TrainingViewModel {
 
     val counter: ObservableField<String>
 
+    val restButtonState: ObservableField<Boolean>
+
     val updateListEvent: SingleLiveEvent<UpdateListEvent>
 
     val trainingOffEvent: SingleLiveEvent<TrainingOffEvent>
