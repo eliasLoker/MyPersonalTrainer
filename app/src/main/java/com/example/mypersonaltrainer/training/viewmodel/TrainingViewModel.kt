@@ -22,6 +22,12 @@ interface TrainingViewModel {
 
     val restButtonState: ObservableField<Boolean>
 
+    val progress: ObservableField<Int>
+
+    val maxProgress: ObservableField<Int>
+
+    val progressState: ObservableField<Boolean>
+
     val updateListEvent: SingleLiveEvent<UpdateListEvent>
 
     val trainingOffEvent: SingleLiveEvent<TrainingOffEvent>

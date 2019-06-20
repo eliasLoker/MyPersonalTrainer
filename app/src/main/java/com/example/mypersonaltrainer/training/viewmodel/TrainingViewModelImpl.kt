@@ -27,7 +27,9 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
     override val currentExerciseName: ObservableField<String> = ObservableField()
     override val instruction: ObservableField<String> = ObservableField(strForTraining)
     override val counter: ObservableField<String> = ObservableField()
-
+    override val progress: ObservableField<Int> = ObservableField()
+    override val maxProgress: ObservableField<Int> = ObservableField(0)
+    override val progressState: ObservableField<Boolean> = ObservableField(false)
     override val restButtonState: ObservableField<Boolean> = ObservableField(true)
 
     override val updateListEvent: SingleLiveEvent<UpdateListEvent> = SingleLiveEvent()
@@ -40,8 +42,8 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
     private var indexOfCurrentProgram: Int = 0
     private var idListExercises = ArrayList<Long>()
     private var exerciseListForRecycler = ArrayList<Long>()
-    private var timeOfRestProgram: Long = 0L
-    private var timeOfRestExercise: Long = 0L
+    private var timeOfRestBetweenPrograms: Long = 0L
+    private var timeOfRestBetweenExercises: Long = 0L
     private var numberOfRepetitions: Int = 0
 
     init {
@@ -49,7 +51,7 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
             trainingInteractor.getProgramById(programId).subscribe { programEntity: ProgramEntity ->
                 programName.set(programEntity.name)
                 idListExercises = programEntity.list as ArrayList<Long>
-                timeOfRestProgram = programEntity.timeOfRest.toLong()
+                timeOfRestBetweenPrograms = programEntity.timeOfRest.toLong()
 
                 val disposableGetEx =
                     trainingInteractor.getExerciseById(idListExercises[indexOfCurrentProgram])
@@ -76,22 +78,28 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
     }
 
     private fun startRestBetweenRepetitions() {
-        trainingInteractor.getTimer(timeOfRestExercise).subscribe(object : Observer<Long> {
+        maxProgress.set(timeOfRestBetweenExercises.toInt())
+        trainingInteractor.getTimer(timeOfRestBetweenExercises).subscribe(object : Observer<Long> {
             override fun onComplete() {
                 indexOfCurrentExercise += 1
                 updateListEvent.postValue(UpdateListEvent(exerciseListForRecycler, indexOfCurrentExercise))
                 instruction.set(strForTraining)
                 counter.set(numberOfRepetitions.toString())
                 restButtonState.set(true)
+
+                progressState.set(false)
             }
 
             override fun onSubscribe(d: Disposable) {
                 instruction.set(strForRest)
                 restButtonState.set(false)
+
+                progressState.set(true)
             }
 
             override fun onNext(t: Long) {
                 counter.set(t.toString())
+                progress.set(t.toInt())
             }
 
             override fun onError(e: Throwable) {
@@ -101,21 +109,28 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
     }
 
     private fun startRestBetweenPrograms() {
-        trainingInteractor.getTimer(timeOfRestProgram).subscribe(object : Observer<Long> {
+        maxProgress.set(timeOfRestBetweenPrograms.toInt())
+        trainingInteractor.getTimer(timeOfRestBetweenPrograms).subscribe(object : Observer<Long> {
             override fun onComplete() {
                 instruction.set(strForTraining)
                 counter.set(numberOfRepetitions.toString())
                 loadNextProgram()
                 restButtonState.set(true)
+
+                progressState.set(false)
             }
 
             override fun onSubscribe(d: Disposable) {
                 instruction.set(strForRest)
                 restButtonState.set(false)
+
+                progressState.set(true)
             }
 
             override fun onNext(t: Long) {
                 counter.set(t.toString())
+
+                progress.set(t.toInt())
             }
 
             override fun onError(e: Throwable) {
@@ -142,12 +157,13 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
     private fun initFields(exerciseEntity: ExerciseEntity) {
         currentExerciseName.set(exerciseEntity.exerciseName)
         numberOfRepetitions = exerciseEntity.numberOfRepetitions
+        maxProgress.set(exerciseEntity.timeOfRest)
         exerciseListForRecycler.clear()
         for (i in 1..exerciseEntity.numberOfRepeat) {
             exerciseListForRecycler.add(i.toLong())
         }
         counter.set(exerciseEntity.numberOfRepetitions.toString())
-        timeOfRestExercise = exerciseEntity.timeOfRest.toLong()
+        timeOfRestBetweenExercises = exerciseEntity.timeOfRest.toLong()
         updateListEvent.postValue(UpdateListEvent(exerciseListForRecycler, indexOfCurrentExercise))
     }
 

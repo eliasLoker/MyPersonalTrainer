@@ -102,6 +102,15 @@
                 app:layout_constraintBottom_toBottomOf="@id/recycler_view"
                 app:layout_constraintEnd_toEndOf="@id/background_recycler_view"/>
 
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/instruction_text_view"
+                app:layout_constraintBottom_toBottomOf="@id/progress_bar"/>
+
         <TextView
                 android:id="@+id/instruction_text_view"
                 android:layout_width="0dp"
@@ -126,6 +135,23 @@
                 android:textColor="@color/colorBlack"
                 android:textAlignment="center"
                 android:textSize="50sp"
+                app:layout_constraintStart_toStartOf="@id/progress_bar"
+                app:layout_constraintEnd_toEndOf="@id/progress_bar"
+                app:layout_constraintTop_toTopOf="@id/progress_bar"
+                app:layout_constraintBottom_toBottomOf="@id/progress_bar"/>
+
+        <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="0dp"
+                android:layout_centerHorizontal="true"
+                android:indeterminate="false"
+                android:max="@{viewModel.maxProgress}"
+                android:progress="@{viewModel.progress}"
+                android:visibility="@{viewModel.progressState ? View.VISIBLE : View.INVISIBLE}"
+                android:progressDrawable="@drawable/circular_progress_bar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/instruction_text_view"/>
