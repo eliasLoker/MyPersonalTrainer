@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
                 name="viewModel"
@@ -13,6 +14,41 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+    <View
+            android:id="@+id/header_view"
+            android:layout_width="0dp"
+            android:layout_height="95dp"
+            android:background="@color/colorPrimary"
+            android:visibility="@{safeUnbox(viewModel.stateRecycler) ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+            android:id="@+id/arm_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_arm_2"
+            android:visibility="@{safeUnbox(viewModel.stateRecycler) ? View.VISIBLE : View.INVISIBLE}"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@id/header_view"
+            app:layout_constraintEnd_toEndOf="@id/header_view"
+            app:layout_constraintTop_toTopOf="@id/header_view"
+            app:layout_constraintBottom_toBottomOf="@id/header_view"/>
+
+    <TextView
+            android:id="@+id/count_program_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textAlignment="center"
+            android:textColor="@color/colorGainsboro"
+            android:text="@{@string/number_of_programs(viewModel.numberOfPrograms)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/header_view"
+            tools:text="Всего добавлено 9 упражнений"/>
 
     <TextView
             android:id="@+id/empty_list_text_view"
@@ -40,12 +76,13 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scrollbars="vertical"
-            android:layout_marginTop="20dp"
             android:clipToPadding="false"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:visibility="@{safeUnbox(viewModel.stateRecycler) ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header_view"
             app:layout_constraintBottom_toBottomOf="parent">
 
     </androidx.recyclerview.widget.RecyclerView>

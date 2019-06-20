@@ -18,6 +18,8 @@ interface ProgramListViewModel {
 
     val stateEmptyTextView: ObservableField<Boolean>
 
+    val numberOfPrograms: ObservableField<String>
+
     val updateListEvent: SingleLiveEvent<UpdateListEvent>
 
     val goToTrainingEvent: SingleLiveEvent<FragmentEvent>

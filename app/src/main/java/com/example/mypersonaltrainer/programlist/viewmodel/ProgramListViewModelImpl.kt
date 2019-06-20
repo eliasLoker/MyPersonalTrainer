@@ -18,6 +18,7 @@ class ProgramListViewModelImpl(private val programListInteractor: ProgramListInt
     override val stateProgressBar: ObservableField<Boolean> = ObservableField(true)
     override val stateRecycler: ObservableField<Boolean> = ObservableField(false)
     override val stateEmptyTextView: ObservableField<Boolean> = ObservableField(false)
+    override val numberOfPrograms: ObservableField<String> = ObservableField()
 
     override val updateListEvent: SingleLiveEvent<UpdateListEvent> = SingleLiveEvent()
 
@@ -33,6 +34,7 @@ class ProgramListViewModelImpl(private val programListInteractor: ProgramListInt
                     stateEmptyTextView.set(true)
                     stateProgressBar.set(false)
                 } else {
+                    numberOfPrograms.set(list.size.toString())
                     updateListEvent.postValue(UpdateListEvent(list))
                     stateRecycler.set(true)
                     stateProgressBar.set(false)
