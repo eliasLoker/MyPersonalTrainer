@@ -78,7 +78,6 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
     private fun startRestBetweenRepetitions() {
         trainingInteractor.getTimer(timeOfRestExercise).subscribe(object : Observer<Long> {
             override fun onComplete() {
-                //goToNextRepetition()
                 indexOfCurrentExercise += 1
                 updateListEvent.postValue(UpdateListEvent(exerciseListForRecycler, indexOfCurrentExercise))
                 instruction.set(strForTraining)
