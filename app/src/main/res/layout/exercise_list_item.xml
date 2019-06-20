@@ -2,86 +2,132 @@
 <layout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
                 name="exercise"
                 type="com.example.mypersonaltrainer.data.exercise.ExerciseEntity"/>
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_for_exercise_list_item">
 
-    <View
-            android:id="@+id/background_buttons_view"
-            android:layout_width="50dp"
-            android:layout_height="0dp"
-            android:background="@color/colorFireBrick"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="2dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <ImageView
-            android:id="@+id/edit_view"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/ic_edit"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-    <ImageView
-            android:id="@+id/delete_view"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/ic_delete"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/edit_view"/>
-
-    <TextView
-            android:id="@+id/name_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@{exercise.exerciseName}"
-            android:textColor="@color/colorBlack"
-            android:textSize="30sp"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/background_buttons_view"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="AFFASFAFFASF"/>
-
-    <TextView
-            android:id="@+id/title_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Подходы/Повторения/Время отдыха"
-            android:textAlignment="center"
+    <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
             android:layout_marginTop="5dp"
-            app:layout_constraintStart_toStartOf="@id/name_text_view"
-            app:layout_constraintEnd_toEndOf="@id/name_text_view"
-            app:layout_constraintTop_toBottomOf="@id/name_text_view"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-            android:id="@+id/property_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_marginTop="5dp"
-            android:text="@{@string/property(exercise.numberOfRepeat, exercise.numberOfRepetitions, exercise.timeOfRest)}"
-            android:textSize="30sp"
-            app:layout_constraintStart_toStartOf="@id/title_text_view"
-            app:layout_constraintEnd_toEndOf="@id/title_text_view"
-            app:layout_constraintTop_toBottomOf="@id/title_text_view"
-            tools:text="25/17/20"/>
+        <View
+                android:id="@+id/background_buttons_view"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:background="@color/colorFireBrick"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@color/colorBlack"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintStart_toStartOf="@id/background_buttons_view"
+                app:layout_constraintEnd_toEndOf="@id/background_buttons_view"
+                app:layout_constraintTop_toTopOf="@id/background_buttons_view"
+                app:layout_constraintBottom_toBottomOf="@id/background_buttons_view"/>
+
+        <ImageView
+                android:id="@+id/edit_view"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/ic_edit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+                android:id="@+id/delete_view"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/ic_delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/edit_view"/>
+
+        <TextView
+                android:id="@+id/name_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@{exercise.exerciseName}"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp"
+                android:textAlignment="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/background_buttons_view"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="AFFASFAFFASF"/>
+
+        <TableLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:paddingBottom="10dp"
+                app:layout_constraintStart_toStartOf="@id/name_text_view"
+                app:layout_constraintEnd_toEndOf="@id/name_text_view"
+                app:layout_constraintTop_toBottomOf="@id/name_text_view">
+
+            <TableRow>
+
+                <TextView
+                        android:text="@{String.valueOf(exercise.numberOfRepeat)}"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="30sp"
+                        tools:text="30"/>
+
+                <TextView
+                        android:text="@{String.valueOf(exercise.numberOfRepetitions)}"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="30sp"
+                        tools:text="30"/>
+
+                <TextView
+                        android:text="@{String.valueOf(exercise.timeOfRest)}"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="30sp"
+                        tools:text="30"/>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                        android:textSize="12sp"
+                        android:textAlignment="center"
+                        android:text="Количество\nподходов"/>
+
+                <TextView
+                        android:textSize="12sp"
+                        android:textAlignment="center"
+                        android:text="Количество\nповторений"/>
+
+                <TextView
+                        android:textSize="12sp"
+                        android:textAlignment="center"
+                        android:text="Время\nотдыха"/>
+            </TableRow>
+        </TableLayout>
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@color/colorFireBrick"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/background_buttons_view"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
