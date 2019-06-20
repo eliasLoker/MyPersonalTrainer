@@ -31,7 +31,7 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
 
     private var indexOfCurrentExercise: Int = 0
     private var indexOfCurrentProgram: Int = 0
-    private var indexListExercises = ArrayList<Long>()
+    private var idListExercises = ArrayList<Long>()
     private var exerciseListForRecycler = ArrayList<Long>()
     private var timeOfRestProgram: Long = 0L
     private var timeOfRestExercise: Long = 0L
@@ -40,11 +40,11 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
         val disposableGetById =
             trainingInteractor.getProgramById(programId).subscribe { programEntity: ProgramEntity ->
                 programName.set(programEntity.name)
-                indexListExercises = programEntity.list as ArrayList<Long>
+                idListExercises = programEntity.list as ArrayList<Long>
                 timeOfRestProgram = programEntity.timeOfRest.toLong()
 
                 val disposableGetEx =
-                    trainingInteractor.getExerciseById(indexListExercises[indexOfCurrentProgram])
+                    trainingInteractor.getExerciseById(idListExercises[indexOfCurrentProgram])
                         .subscribe { exerciseEntity: ExerciseEntity ->
                             currentExerciseName.set(exerciseEntity.exerciseName)
                             //indexOfCurrentProgram++
@@ -59,9 +59,32 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
     }
 
     override fun onClickStartRestButton() {
+        Log.d("TVM", "indexOfCurrentProgram $indexOfCurrentProgram")
+        Log.d("TVM", "indexOfCurrentExercise $indexOfCurrentExercise")
+        Log.d("TVM", "idListExercises.size ${idListExercises.size}")
+        Log.d("TVM", "exerciseListForRecycler.size ${exerciseListForRecycler.size}")
+        if (indexOfCurrentProgram == idListExercises.size - 1 &&
+            indexOfCurrentExercise == exerciseListForRecycler.size - 1
+        ) {
+            trainingOffEvent.postValue(TrainingOffEvent("Тренировка закончилась"))
+            Log.d("TVM", "if 1")
+            return
+        }
+        if (indexOfCurrentExercise == exerciseListForRecycler.size - 1) {
+            startRestBetweenPrograms()
+            Log.d("TVM", "if 2")
+            return
+        }
+        Log.d("TVM", "not if")
+        startRestBetweenRepetitions()
+    }
+
+    private fun startRestBetweenRepetitions() {
         trainingInteractor.getTimer(timeOfRestExercise).subscribe(object : Observer<Long> {
             override fun onComplete() {
-                goToNextRepetition()
+                //goToNextRepetition()
+                indexOfCurrentExercise += 1
+                updateListEvent.postValue(UpdateListEvent(exerciseListForRecycler, indexOfCurrentExercise))
             }
 
             override fun onSubscribe(d: Disposable) {
@@ -78,30 +101,33 @@ class TrainingViewModelImpl(private val trainingInteractor: TrainingInteractor, 
         })
     }
 
-    private fun goToNextRepetition() {
-        indexOfCurrentExercise += 1
-        if (indexOfCurrentProgram == indexListExercises.size - 1 && indexOfCurrentExercise == exerciseListForRecycler.size) {
-            trainingOffEvent.postValue(TrainingOffEvent("Тренировка закончилась"))
-            Log.d("TVM", "IF2")
-            return
-        }
+    private fun startRestBetweenPrograms() {
+        trainingInteractor.getTimer(timeOfRestProgram).subscribe(object : Observer<Long> {
+            override fun onComplete() {
+                loadNextProgram()
+            }
 
-        if (indexOfCurrentExercise == exerciseListForRecycler.size) {
-            Log.d("TVM", "IF1")
-            loadProgram()
-            return
-        }
+            override fun onSubscribe(d: Disposable) {
 
-        updateListEvent.postValue(UpdateListEvent(exerciseListForRecycler, indexOfCurrentExercise))
+            }
+
+            override fun onNext(t: Long) {
+                counter.set(t.toString())
+            }
+
+            override fun onError(e: Throwable) {
+
+            }
+        })
     }
 
-    private fun loadProgram() {
+    private fun loadNextProgram() {
         indexOfCurrentExercise = 0
         indexOfCurrentProgram += 1
         val disposableGetById =
             trainingInteractor.getProgramById(programId).subscribe { programEntity: ProgramEntity ->
                 val disposableGetEx =
-                    trainingInteractor.getExerciseById(indexListExercises[indexOfCurrentProgram])
+                    trainingInteractor.getExerciseById(idListExercises[indexOfCurrentProgram])
                         .subscribe { exerciseEntity: ExerciseEntity ->
                             currentExerciseName.set(exerciseEntity.exerciseName)
                             exerciseListForRecycler.clear()
