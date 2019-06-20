@@ -3,15 +3,13 @@
         xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/colorPrimary"/>
+            <solid android:color="@color/colorGainsboro"/>
         </shape>
     </item>
 
     <item
-            android:bottom="10px"
-            android:left="7px"
-            android:right="7px"
-            android:top="3px">
+            android:left="5px"
+            android:top="5px">
         <shape android:shape="rectangle">
             <solid android:color="@color/colorWhite"/>
         </shape>

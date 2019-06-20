@@ -20,6 +20,8 @@ interface ExercisesListViewModel {
 
     val stateEmptyTextView: ObservableField<Boolean>
 
+    val numberOfExercises: ObservableField<String>
+
     val updateListEvent: SingleLiveEvent<UpdateListEvent>
 
     val showEditDialogEvent: SingleLiveEvent<EditExerciseDialogEvent>

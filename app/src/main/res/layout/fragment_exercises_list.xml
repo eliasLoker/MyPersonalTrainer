@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -15,6 +16,40 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+        <View
+                android:id="@+id/header_view"
+                android:layout_width="0dp"
+                android:layout_height="95dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="@{safeUnbox(viewModel.stateRecycler) ? View.VISIBLE : View.INVISIBLE}"
+                android:background="@color/colorPrimary"/>
+
+        <ImageView
+                android:id="@+id/arm_image_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_arm"
+                android:visibility="@{safeUnbox(viewModel.stateRecycler) ? View.VISIBLE : View.INVISIBLE}"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="@id/header_view"
+                app:layout_constraintEnd_toEndOf="@id/header_view"
+                app:layout_constraintTop_toTopOf="@id/header_view"
+                app:layout_constraintBottom_toBottomOf="@id/header_view"/>
+
+        <TextView
+                android:id="@+id/count_exercise_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGainsboro"
+                android:text="@{@string/number_of_exercise(viewModel.numberOfExercises)}"
+                android:visibility="@{safeUnbox(viewModel.stateRecycler) ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/header_view"
+                tools:text="Всего добавлено 9 упражнений"/>
 
         <TextView
                 android:id="@+id/empty_list_text_view"
@@ -41,12 +76,14 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:scrollbars="vertical"
                 android:clipToPadding="false"
                 android:visibility="@{safeUnbox(viewModel.stateRecycler) ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/header_view"
                 app:layout_constraintBottom_toBottomOf="parent">
 
         </androidx.recyclerview.widget.RecyclerView>

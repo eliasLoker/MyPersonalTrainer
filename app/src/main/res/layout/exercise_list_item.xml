@@ -13,7 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/shape_for_exercise_list_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -21,7 +22,7 @@
                 android:id="@+id/background_buttons_view"
                 android:layout_width="50dp"
                 android:layout_height="0dp"
-                android:background="@color/colorFireBrick"
+                android:background="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -29,7 +30,7 @@
         <View
                 android:layout_width="0dp"
                 android:layout_height="2dp"
-                android:background="@color/colorBlack"
+                android:background="@color/colorGainsboro"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 app:layout_constraintStart_toStartOf="@id/background_buttons_view"
@@ -125,7 +126,7 @@
         <View
                 android:layout_width="0dp"
                 android:layout_height="2dp"
-                android:background="@color/colorFireBrick"
+                android:background="@color/colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/background_buttons_view"/>

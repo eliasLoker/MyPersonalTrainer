@@ -8,4 +8,6 @@
     <string name="property">%1$s \/ %2$s \/ %3$s</string>
 
     <string name="delete_message">Вы действительно хотите удалить %1$s?</string>
+
+    <string name="number_of_exercise">Всего добавлено упражнений: %1$s</string>
 </resources>

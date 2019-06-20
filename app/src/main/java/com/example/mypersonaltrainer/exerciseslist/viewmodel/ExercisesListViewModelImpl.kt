@@ -20,6 +20,7 @@ class ExercisesListViewModelImpl(private val exercisesListInteractor: ExercisesL
     override val stateProgressBar: ObservableField<Boolean> = ObservableField(true)
     override val stateRecycler: ObservableField<Boolean> = ObservableField(false)
     override val stateEmptyTextView: ObservableField<Boolean> = ObservableField(false)
+    override val numberOfExercises: ObservableField<String> = ObservableField()
 
     override val updateListEvent: SingleLiveEvent<UpdateListEvent> = SingleLiveEvent()
 
@@ -42,6 +43,7 @@ class ExercisesListViewModelImpl(private val exercisesListInteractor: ExercisesL
                     updateListEvent.postValue(UpdateListEvent(list))
                     stateRecycler.set(true)
                     stateProgressBar.set(false)
+                    numberOfExercises.set(list.size.toString())
                 }
             }
     }
