@@ -14,9 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_height="match_parent">
 
         <TextView
                 android:id="@+id/program_name_text_view"
@@ -24,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
                 android:textColor="@color/colorBlack"
-                android:background="@color/colorFireBrick"
+                android:background="@color/colorPrimary"
                 android:textAlignment="center"
                 android:text="@{viewModel.programName}"
                 app:layout_constraintStart_toStartOf="parent"
@@ -32,19 +30,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Proga 1"/>
 
-        <TextView
-                android:id="@+id/exercise_title_text_view"
+        <View
+                android:id="@+id/background_recycler_view"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Текущее упражнение и подходы:"
-                android:textColor="@color/colorBlack"
-                android:background="@color/colorFireBrick"
-                android:textAlignment="center"
-                android:textSize="25sp"
-                android:layout_marginTop="10dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/program_name_text_view"/>
+                app:layout_constraintTop_toTopOf="@id/current_exercise_name_text_view"
+                app:layout_constraintBottom_toBottomOf="@id/recycler_view"/>
 
         <TextView
                 android:id="@+id/current_exercise_name_text_view"
@@ -52,26 +48,59 @@
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.currentExerciseName}"
                 android:textColor="@color/colorBlack"
-                android:background="@color/colorFireBrick"
                 android:textAlignment="center"
-                android:textSize="25sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/exercise_title_text_view"
+                android:textSize="30sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@id/background_recycler_view"
+                app:layout_constraintEnd_toEndOf="@id/background_recycler_view"
+                app:layout_constraintTop_toBottomOf="@id/program_name_text_view"
                 tools:text="Ghghghg"/>
+
+        <TextView
+                android:id="@+id/exercise_title_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Текущее упражнение и подходы"
+                android:textColor="@color/colorGainsboro"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/background_recycler_view"
+                app:layout_constraintEnd_toEndOf="@id/background_recycler_view"
+                app:layout_constraintTop_toBottomOf="@id/current_exercise_name_text_view"/>
+
+        <ImageView
+                android:id="@+id/arrow_left_image_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/ic_arrow_left"
+                app:layout_constraintStart_toStartOf="@id/background_recycler_view"
+                app:layout_constraintTop_toTopOf="@id/recycler_view"
+                app:layout_constraintBottom_toBottomOf="@id/recycler_view"/>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="0dp"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="10dp"
                 android:layout_height="wrap_content"
                 android:scrollbars="horizontal"
-                android:background="@color/colorFireBrick"
                 android:clipToPadding="false"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/current_exercise_name_text_view">
+                app:layout_constraintStart_toEndOf="@id/arrow_left_image_view"
+                app:layout_constraintEnd_toStartOf="@id/arrow_right_image_view"
+                app:layout_constraintTop_toBottomOf="@id/exercise_title_text_view">
 
         </androidx.recyclerview.widget.RecyclerView>
+
+        <ImageView
+                android:id="@+id/arrow_right_image_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/ic_arrow_right"
+                app:layout_constraintTop_toTopOf="@id/recycler_view"
+                app:layout_constraintBottom_toBottomOf="@id/recycler_view"
+                app:layout_constraintEnd_toEndOf="@id/background_recycler_view"/>
 
         <TextView
                 android:id="@+id/instruction_text_view"
@@ -79,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.instruction}"
                 android:textAlignment="center"
-                android:background="@color/colorFireBrick"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/colorBlack"
                 android:textSize="30sp"
                 android:layout_marginTop="10dp"
@@ -93,7 +122,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.counter}"
-                android:background="@color/colorFireBrick"
+                android:background="@color/colorPrimary"
                 android:textColor="@color/colorBlack"
                 android:textAlignment="center"
                 android:textSize="50sp"
