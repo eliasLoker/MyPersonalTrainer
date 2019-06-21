@@ -12,7 +12,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:clickable="true">
 
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_title_edit_text"
@@ -22,6 +24,7 @@
                 app:counterEnabled="true"
                 app:counterMaxLength="20"
                 android:maxLength="20"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
@@ -37,32 +40,18 @@
                     android:textAlignment="center"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_title_edit_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:hint="Название упражнения. Например: пресс"
-                android:text="@={viewModel.programName}"
-                android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-        -->
-
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_amount_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 app:layout_constraintTop_toBottomOf="@id/input_title_edit_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
+
             <com.google.android.material.textfield.TextInputEditText
                     android:hint="Количество подходов"
                     android:text="@={viewModel.numberOfRepeat}"
@@ -72,33 +61,18 @@
                     android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_amount_edit_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:hint="Количество подходов"
-                android:text="@={viewModel.timeOfRest}"
-                android:inputType="number"
-                android:textAlignment="center"
-                app:layout_constraintTop_toBottomOf="@id/input_title_edit_text"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-        -->
-
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_amount_repetitions_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/input_amount_edit_text">
+
             <com.google.android.material.textfield.TextInputEditText
                     android:hint="Количество повторений в подходе"
                     android:text="@={viewModel.numberOfRepetitions}"
@@ -108,59 +82,26 @@
                     android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <!--
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_amount_repetitions_edit_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:hint="Количество повторений в подходе"
-                android:text="@={viewModel.numberOfRepetitions}"
-                android:inputType="number"
-                android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_amount_edit_text"/>
-        -->
-
-<com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_time_of_rest_edit_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_amount_repetitions_edit_text">
-    <com.google.android.material.textfield.TextInputEditText
-            android:inputType="number"
-            android:hint="Время отдыха в секундах между подходами"
-            android:text="@={viewModel.timeOfRest}"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-</com.google.android.material.textfield.TextInputLayout>
-
-        <!--
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_time_of_rest_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:inputType="number"
-                android:hint="Время отдыха в секундах между подходами"
-                android:text="@={viewModel.timeOfRest}"
-                android:textAlignment="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_amount_repetitions_edit_text"/>
-        -->
+                app:layout_constraintTop_toBottomOf="@id/input_amount_repetitions_edit_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="number"
+                    android:hint="Время отдыха в секундах между подходами"
+                    android:text="@={viewModel.timeOfRest}"
+                    android:textAlignment="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
                 android:id="@+id/create_exercise_button"
