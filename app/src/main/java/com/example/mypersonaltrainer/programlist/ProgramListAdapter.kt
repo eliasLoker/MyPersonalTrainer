@@ -40,8 +40,13 @@ class ProgramListAdapter : RecyclerView.Adapter<ProgramListHolder>() {
 
     override fun onBindViewHolder(holder: ProgramListHolder, position: Int) {
         holder.bind(data[position])
-        holder.programListItemBinding.programNameTextView.setOnClickListener {
+        holder.programListItemBinding.editView.setOnClickListener {
+            listener.onSettingsClicked(holder.programListItemBinding.program!!.id!!)
+        }
+        holder.programListItemBinding.root
+            .setOnClickListener {
             listener.onClickStartButton(holder.programListItemBinding.program!!.id!!)
         }
+
     }
 }

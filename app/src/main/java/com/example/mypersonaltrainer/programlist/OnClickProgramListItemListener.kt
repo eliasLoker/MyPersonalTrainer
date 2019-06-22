@@ -8,4 +8,6 @@ package com.example.mypersonaltrainer.programlist
 interface OnClickProgramListItemListener {
 
     fun onClickStartButton(id: Long)
+
+    fun onSettingsClicked(id: Long)
 }

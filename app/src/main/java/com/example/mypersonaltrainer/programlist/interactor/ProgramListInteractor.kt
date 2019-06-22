@@ -18,4 +18,10 @@ class ProgramListInteractor(private val programDao: ProgramDao) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    fun getProgramById(id: Long): Single<ProgramEntity> {
+        return programDao.getById(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.mypersonaltrainer.SingleLiveEvent
 import com.example.mypersonaltrainer.data.program.ProgramEntity
 import com.example.mypersonaltrainer.programlist.events.FragmentEvent
+import com.example.mypersonaltrainer.programlist.events.ShowEditProgramDialogEvent
 import com.example.mypersonaltrainer.programlist.events.UpdateListEvent
 import com.example.mypersonaltrainer.programlist.interactor.ProgramListInteractor
 
@@ -19,6 +20,8 @@ class ProgramListViewModelImpl(private val programListInteractor: ProgramListInt
     override val stateRecycler: ObservableField<Boolean> = ObservableField(false)
     override val stateEmptyTextView: ObservableField<Boolean> = ObservableField(false)
     override val numberOfPrograms: ObservableField<String> = ObservableField()
+
+    override val showEditProgramDialogEvent: SingleLiveEvent<ShowEditProgramDialogEvent> = SingleLiveEvent()
 
     override val updateListEvent: SingleLiveEvent<UpdateListEvent> = SingleLiveEvent()
 
@@ -44,5 +47,11 @@ class ProgramListViewModelImpl(private val programListInteractor: ProgramListInt
 
     override fun onClickStartButtonCallback(id: Long) {
         goToTrainingEvent.postValue(FragmentEvent(id))
+    }
+
+    override fun onSettingsClickedCallback(id: Long) {
+        val disposable = programListInteractor.getProgramById(id).subscribe { t: ProgramEntity ->
+            showEditProgramDialogEvent.postValue(ShowEditProgramDialogEvent(t.name, t.timeOfRest.toString()))
+        }
     }
 }

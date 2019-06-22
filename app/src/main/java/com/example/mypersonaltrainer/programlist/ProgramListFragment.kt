@@ -21,7 +21,7 @@ import javax.inject.Inject
  *
  * @author Alexandr Mikhalev
  */
-class ProgramListFragment : Fragment(), OnClickProgramListItemListener {
+class ProgramListFragment : Fragment(), OnClickProgramListItemListener, OnClickEditDialogButtonsListener {
 
     @Inject
     lateinit var programListViewModel: ProgramListViewModel
@@ -57,6 +57,7 @@ class ProgramListFragment : Fragment(), OnClickProgramListItemListener {
     private fun init() {
         programListViewModel.updateListEvent.observe(this, Observer { setList(it.list) })
         programListViewModel.goToTrainingEvent.observe(this, Observer { goToTraining(it.id) })
+        programListViewModel.showEditProgramDialogEvent.observe(this, Observer { showEditDialog(it.title, it.timeOfRest) })
     }
 
     private fun setList(programList: List<ProgramEntity>) {
@@ -71,6 +72,11 @@ class ProgramListFragment : Fragment(), OnClickProgramListItemListener {
             .addToBackStack(null)
             .replace(R.id.fragment_activity_container, TrainingFragment.newInstance(id))
             .commit()
+    }
+
+    private fun showEditDialog(title: String, timeOfRest: String) {
+        val editDialog = EditProgramDialog().newInstance(title, timeOfRest)
+        editDialog.show(childFragmentManager, "TAAG")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -94,6 +100,14 @@ class ProgramListFragment : Fragment(), OnClickProgramListItemListener {
 
     override fun onClickStartButton(id: Long) {
         programListViewModel.onClickStartButtonCallback(id)
+    }
+
+    override fun onSettingsClicked(id: Long) {
+        programListViewModel.onSettingsClickedCallback(id)
+    }
+
+    override fun onButtonSavedClicked(title: String, timeOfRest: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     companion object {
