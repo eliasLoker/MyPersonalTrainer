@@ -12,4 +12,6 @@
 
     <string name="number_of_exercise">Всего добавлено упражнений: %1$s</string>
     <string name="number_of_programs">Всего добавлено программ: %1$s</string>
+
+    <string name="snackbar_message">Первым делом создайте упражнения, а потом составьте из них тренировку</string>
 </resources>

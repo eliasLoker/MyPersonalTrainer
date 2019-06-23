@@ -14,6 +14,7 @@ import com.example.mypersonaltrainer.exerciseslist.ExercisesListFragment
 import com.example.mypersonaltrainer.programlist.ProgramListFragment
 import com.example.mypersonaltrainer.start.viewmodel.StartViewModel
 import com.example.mypersonaltrainer.start.viewmodel.StartViewModelImpl
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * Created by Alexandr Mikhalev on 09.06.2019.
@@ -47,6 +48,8 @@ class StartFragment : Fragment() {
         startViewModel.goToMyTrainingsEvent.observe(this, Observer {
             goToMyTrainings()
         })
+
+        startViewModel.showSnackbarEvent.observe(this, Observer { showSnackBar() })
     }
 
     private fun goToCreateExerciseFragment() {
@@ -61,6 +64,10 @@ class StartFragment : Fragment() {
             .addToBackStack(null)
             .replace(R.id.fragment_activity_container, ProgramListFragment.newInstance())
             .commit()
+    }
+
+    private fun showSnackBar() {
+        Snackbar.make(binding!!.fab, resources.getString(R.string.snackbar_message), Snackbar.LENGTH_LONG).show()
     }
 
     companion object {
