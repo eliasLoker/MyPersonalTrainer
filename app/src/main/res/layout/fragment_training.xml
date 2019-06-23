@@ -14,21 +14,23 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary">
 
         <TextView
                 android:id="@+id/program_name_text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:textColor="@color/colorBlack"
-                android:background="@color/colorPrimary"
+                android:textSize="25sp"
+                android:textColor="@color/colorGainsboro"
                 android:textAlignment="center"
+                android:layout_marginTop="10dp"
                 android:text="@{viewModel.programName}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Proga 1"/>
+
 
         <View
                 android:id="@+id/background_recycler_view"
@@ -36,11 +38,13 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:background="@color/colorPrimary"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/shape_for_training"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/current_exercise_name_text_view"
-                app:layout_constraintBottom_toBottomOf="@id/recycler_view"/>
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
 
         <TextView
                 android:id="@+id/current_exercise_name_text_view"
@@ -50,20 +54,19 @@
                 android:textColor="@color/colorBlack"
                 android:textAlignment="center"
                 android:textSize="30sp"
+                android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="@id/background_recycler_view"
                 app:layout_constraintEnd_toEndOf="@id/background_recycler_view"
                 app:layout_constraintTop_toBottomOf="@id/program_name_text_view"
                 tools:text="Ghghghg"/>
 
-        <TextView
-                android:id="@+id/exercise_title_text_view"
+        <ImageView
+                android:id="@+id/line1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Текущее упражнение и подходы"
-                android:textColor="@color/colorGainsboro"
-                android:textAlignment="center"
-                android:textSize="12sp"
+                android:layout_height="5dp"
+                android:src="@drawable/shape_for_line"
+                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="@id/background_recycler_view"
                 app:layout_constraintEnd_toEndOf="@id/background_recycler_view"
                 app:layout_constraintTop_toBottomOf="@id/current_exercise_name_text_view"/>
@@ -81,14 +84,14 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="0dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:paddingBottom="10dp"
                 android:layout_height="wrap_content"
                 android:scrollbars="horizontal"
                 android:clipToPadding="false"
                 app:layout_constraintStart_toEndOf="@id/arrow_left_image_view"
                 app:layout_constraintEnd_toStartOf="@id/arrow_right_image_view"
-                app:layout_constraintTop_toBottomOf="@id/exercise_title_text_view">
+                app:layout_constraintTop_toBottomOf="@id/line1">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -103,13 +106,26 @@
                 app:layout_constraintEnd_toEndOf="@id/background_recycler_view"/>
 
         <View
+                android:id="@+id/line2"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@color/colorPrimary"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/instruction_text_view"
-                app:layout_constraintBottom_toBottomOf="@id/progress_bar"/>
+                android:layout_height="5dp"
+                android:background="@drawable/shape_for_line"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@id/background_recycler_view"
+                app:layout_constraintEnd_toEndOf="@id/background_recycler_view"
+                app:layout_constraintTop_toBottomOf="@id/recycler_view"/>
+
+        <View
+                android:id="@+id/background_for_counter"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:background="@drawable/shape_for_training_second"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@id/background_recycler_view"
+                app:layout_constraintEnd_toEndOf="@id/background_recycler_view"
+                app:layout_constraintTop_toBottomOf="@id/line2" />
 
         <TextView
                 android:id="@+id/instruction_text_view"
@@ -117,13 +133,14 @@
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.instruction}"
                 android:textAlignment="center"
-                android:background="@color/colorPrimary"
                 android:textColor="@color/colorBlack"
                 android:textSize="30sp"
                 android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recycler_view"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintStart_toStartOf="@id/background_for_counter"
+                app:layout_constraintEnd_toEndOf="@id/background_for_counter"
+                app:layout_constraintTop_toTopOf="@id/background_for_counter"
                 tools:text="БЛА БЛА БЛА"/>
 
         <TextView
@@ -135,6 +152,7 @@
                 android:textColor="@color/colorBlack"
                 android:textAlignment="center"
                 android:textSize="50sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@id/progress_bar"
                 app:layout_constraintEnd_toEndOf="@id/progress_bar"
                 app:layout_constraintTop_toTopOf="@id/progress_bar"
@@ -145,16 +163,16 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginEnd="0dp"
                 android:layout_centerHorizontal="true"
                 android:indeterminate="false"
                 android:max="@{viewModel.maxProgress}"
                 android:progress="@{viewModel.progress}"
                 android:visibility="@{viewModel.progressState ? View.VISIBLE : View.INVISIBLE}"
                 android:progressDrawable="@drawable/circular_progress_bar"
+                android:layout_marginBottom="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/instruction_text_view"/>
+                app:layout_constraintBottom_toBottomOf="@id/background_for_counter"/>
 
         <Button
                 android:id="@+id/start_rest_button"
