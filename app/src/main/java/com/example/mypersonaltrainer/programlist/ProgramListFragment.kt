@@ -21,12 +21,13 @@ import javax.inject.Inject
  *
  * @author Alexandr Mikhalev
  */
-class ProgramListFragment : Fragment(), OnClickProgramListItemListener, OnClickEditDialogButtonsListener {
+class ProgramListFragment : Fragment(), OnClickProgramListItemListener, OnClickEditDialogButtonsListener,
+    OnClickDeleteDialogButtonsListener {
 
     @Inject
     lateinit var programListViewModel: ProgramListViewModel
 
-    private var binding : com.example.mypersonaltrainer.databinding.FragmentProgramListBinding? = null
+    private var binding: com.example.mypersonaltrainer.databinding.FragmentProgramListBinding? = null
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var programListAdapter: ProgramListAdapter
@@ -57,7 +58,10 @@ class ProgramListFragment : Fragment(), OnClickProgramListItemListener, OnClickE
     private fun init() {
         programListViewModel.updateListEvent.observe(this, Observer { setList(it.list) })
         programListViewModel.goToTrainingEvent.observe(this, Observer { goToTraining(it.id) })
-        programListViewModel.showEditProgramDialogEvent.observe(this, Observer { showEditDialog(it.title, it.timeOfRest) })
+        programListViewModel.showEditProgramDialogEvent.observe(
+            this,
+            Observer { showEditDialog(it.title, it.timeOfRest) })
+        programListViewModel.showDeleteDialogEvent.observe(this, Observer { showDeleteDialog(it.exerciseTitle) })
     }
 
     private fun setList(programList: List<ProgramEntity>) {
@@ -77,6 +81,11 @@ class ProgramListFragment : Fragment(), OnClickProgramListItemListener, OnClickE
     private fun showEditDialog(title: String, timeOfRest: String) {
         val editDialog = EditProgramDialog().newInstance(title, timeOfRest)
         editDialog.show(childFragmentManager, "TAAG")
+    }
+
+    private fun showDeleteDialog(title: String) {
+        val deleteExerciseDialog = DeleteProgramDialog().newInstance(title)
+        deleteExerciseDialog.show(childFragmentManager, "TAG2")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -106,7 +115,15 @@ class ProgramListFragment : Fragment(), OnClickProgramListItemListener, OnClickE
         programListViewModel.onSettingsClickedCallback(id)
     }
 
+    override fun onBasketClicked(id: Long) {
+        programListViewModel.onBasketClickedCallback(id)
+    }
+
     override fun onButtonSavedClicked(title: String, timeOfRest: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onConfirmDeleteDialogClicked() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

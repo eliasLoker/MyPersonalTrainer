@@ -1,4 +1,4 @@
-package com.example.mypersonaltrainer.exerciseslist
+package com.example.mypersonaltrainer.programlist
 
 import android.os.Bundle
 import android.view.*
@@ -7,11 +7,11 @@ import androidx.fragment.app.DialogFragment
 import com.example.mypersonaltrainer.R
 
 /**
- * Created by Alexandr Mikhalev on 13.06.2019.
+ * Created by Alexandr Mikhalev on 23.06.2019.
  *
  * @author Alexandr Mikhalev
  */
-class DeleteExerciseDialog : DialogFragment(), View.OnClickListener {
+class DeleteProgramDialog: DialogFragment(), View.OnClickListener {
 
     private lateinit var confirmTextView: TextView
     private lateinit var cancelTextView: TextView
@@ -41,7 +41,7 @@ class DeleteExerciseDialog : DialogFragment(), View.OnClickListener {
         cancelTextView = view.findViewById(R.id.cancel_button)
         deleteTextView = view.findViewById(R.id.delete_text_view)
 
-        val text = String.format(resources.getString(R.string.delete_exercise_message), number)
+        val text = String.format(resources.getString(R.string.delete_program_message), number)
         deleteTextView.text = text
 
         confirmTextView.setOnClickListener(this)
@@ -72,10 +72,10 @@ class DeleteExerciseDialog : DialogFragment(), View.OnClickListener {
         }
     }
 
-    fun newInstance(message: String?): DeleteExerciseDialog {
+    fun newInstance(message: String?): DeleteProgramDialog {
         val args = Bundle()
         args.putString(KEY, message)
-        val fragment = DeleteExerciseDialog()
+        val fragment = DeleteProgramDialog()
         fragment.arguments = args
         return fragment
     }

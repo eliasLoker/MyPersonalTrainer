@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.mypersonaltrainer.SingleLiveEvent
 import com.example.mypersonaltrainer.data.program.ProgramEntity
 import com.example.mypersonaltrainer.programlist.events.FragmentEvent
+import com.example.mypersonaltrainer.programlist.events.ShowDeleteDialogEvent
 import com.example.mypersonaltrainer.programlist.events.ShowEditProgramDialogEvent
 import com.example.mypersonaltrainer.programlist.events.UpdateListEvent
 import com.example.mypersonaltrainer.programlist.interactor.ProgramListInteractor
@@ -26,6 +27,8 @@ class ProgramListViewModelImpl(private val programListInteractor: ProgramListInt
     override val updateListEvent: SingleLiveEvent<UpdateListEvent> = SingleLiveEvent()
 
     override val goToTrainingEvent: SingleLiveEvent<FragmentEvent> = SingleLiveEvent()
+
+    override val showDeleteDialogEvent: SingleLiveEvent<ShowDeleteDialogEvent> = SingleLiveEvent()
 
     private lateinit var list: MutableList<ProgramEntity>
 
@@ -52,6 +55,12 @@ class ProgramListViewModelImpl(private val programListInteractor: ProgramListInt
     override fun onSettingsClickedCallback(id: Long) {
         val disposable = programListInteractor.getProgramById(id).subscribe { t: ProgramEntity ->
             showEditProgramDialogEvent.postValue(ShowEditProgramDialogEvent(t.name, t.timeOfRest.toString()))
+        }
+    }
+
+    override fun onBasketClickedCallback(id: Long) {
+        val disposable = programListInteractor.getProgramById(id).subscribe { t: ProgramEntity ->
+            showDeleteDialogEvent.postValue(ShowDeleteDialogEvent(t.name))
         }
     }
 }

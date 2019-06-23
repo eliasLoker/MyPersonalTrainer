@@ -43,6 +43,11 @@ class ProgramListAdapter : RecyclerView.Adapter<ProgramListHolder>() {
         holder.programListItemBinding.editView.setOnClickListener {
             listener.onSettingsClicked(holder.programListItemBinding.program!!.id!!)
         }
+
+        holder.programListItemBinding.deleteView.setOnClickListener {
+            listener.onBasketClicked(holder.programListItemBinding.program!!.id!!)
+        }
+
         holder.programListItemBinding.root
             .setOnClickListener {
             listener.onClickStartButton(holder.programListItemBinding.program!!.id!!)
