@@ -2,6 +2,7 @@ package com.example.mypersonaltrainer.exerciseslist
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -39,6 +40,7 @@ class ExercisesListFragment : Fragment(), OnItemButtonsClickListener, OnClickSet
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_exercises_list, container, false)
+        (activity as AppCompatActivity).supportActionBar?.show()
         binding!!.viewModel = exercisesListViewModel
         init()
 

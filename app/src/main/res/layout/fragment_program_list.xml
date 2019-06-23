@@ -2,90 +2,87 @@
 <layout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
                 name="viewModel"
                 type="com.example.mypersonaltrainer.programlist.viewmodel.ProgramListViewModel"/>
+
         <import type="android.view.View"/>
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <View
-            android:id="@+id/header_view"
-            android:layout_width="0dp"
-            android:layout_height="95dp"
-            android:background="@color/colorPrimary"
-            android:visibility="@{safeUnbox(viewModel.stateRecycler) ? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp">
 
-    <ImageView
-            android:id="@+id/arm_image_view"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/ic_arm_2"
-            android:visibility="@{safeUnbox(viewModel.stateRecycler) ? View.VISIBLE : View.INVISIBLE}"
-            android:layout_marginTop="5dp"
-            app:layout_constraintStart_toStartOf="@id/header_view"
-            app:layout_constraintEnd_toEndOf="@id/header_view"
-            app:layout_constraintTop_toTopOf="@id/header_view"
-            app:layout_constraintBottom_toBottomOf="@id/header_view"/>
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/collapsing_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:contentScrim="@color/colorDarkGreen">
 
-    <TextView
-            android:id="@+id/count_program_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textAlignment="center"
-            android:textColor="@color/colorGainsboro"
-            android:text="@{@string/number_of_programs(viewModel.numberOfPrograms)}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/header_view"
-            tools:text="Всего добавлено 9 упражнений"/>
+                <ImageView
+                        android:id="@+id/arm_image_view"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/ic_arm_2"
+                        android:visibility="@{safeUnbox(viewModel.stateRecycler) ? View.VISIBLE : View.INVISIBLE}"
+                        android:layout_marginTop="5dp"
+                        android:layout_gravity="center_horizontal|top"
+                        android:scaleType="centerCrop"
+                        app:layout_collapseMode="parallax"/>
 
-    <TextView
-            android:id="@+id/empty_list_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Список ваших программ пуст"
-            android:visibility="@{safeUnbox(viewModel.stateEmptyTextView) ? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView
+                        android:id="@+id/count_program_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorGainsboro"
+                        android:text="@{@string/number_of_programs(viewModel.numberOfPrograms)}"
+                        android:layout_gravity="center_horizontal|bottom"
+                        tools:text="Всего добавлено 9 упражнений"/>
 
-    <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{safeUnbox(viewModel.stateProgressBar) ? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scrollbars="vertical"
-            android:clipToPadding="false"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:visibility="@{safeUnbox(viewModel.stateRecycler) ? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header_view"
-            app:layout_constraintBottom_toBottomOf="parent">
+        </com.google.android.material.appbar.AppBarLayout>
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                android:clipToPadding="false"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:visibility="@{safeUnbox(viewModel.stateRecycler) ? View.VISIBLE : View.INVISIBLE}">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+                android:id="@+id/empty_list_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Список ваших программ пуст"
+                android:visibility="@{safeUnbox(viewModel.stateEmptyTextView) ? View.VISIBLE : View.INVISIBLE}"
+                android:layout_gravity="center_horizontal|center_vertical"/>
+
+        <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{safeUnbox(viewModel.stateProgressBar) ? View.VISIBLE : View.INVISIBLE}"
+                android:layout_gravity="center_horizontal|center_vertical"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
