@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,6 +18,7 @@ import com.example.mypersonaltrainer.exerciseslist.ExercisesListFragment
 import com.example.mypersonaltrainer.programlist.ProgramListFragment
 import com.example.mypersonaltrainer.start.viewmodel.StartViewModel
 import com.example.mypersonaltrainer.start.viewmodel.StartViewModelImpl
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -39,6 +43,24 @@ class StartFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.hide()
         binding!!.viewModel = startViewModel
         init()
+        //
+        val constraintLayout: ConstraintLayout = binding!!.root.findViewById(R.id.bottom_sheet)
+        val bottomSheetBehavior = BottomSheetBehavior.from(constraintLayout)
+        val arrow: ImageView = binding!!.root.findViewById(R.id.arrow)
+        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when(newState) {
+                    BottomSheetBehavior.STATE_COLLAPSED -> arrow.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_up, null))
+                    BottomSheetBehavior.STATE_SETTLING -> arrow.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_down, null))
+                }
+
+            }
+        })
+        //
         return binding!!.root
     }
 
@@ -69,7 +91,7 @@ class StartFragment : Fragment() {
     }
 
     private fun showSnackBar() {
-        Snackbar.make(binding!!.fab, resources.getString(R.string.snackbar_message), Snackbar.LENGTH_LONG).show()
+        //Snackbar.make(binding!!.fab, resources.getString(R.string.snackbar_message), Snackbar.LENGTH_LONG).show()
     }
 
     companion object {

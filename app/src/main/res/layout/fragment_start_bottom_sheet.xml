@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="340dp"
+        android:background="@color/colorDarkGreen"
+        android:orientation="vertical"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="50dp"
+        style="@style/Widget.Design.BottomSheet.Modal"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <View
+            android:id="@+id/bottom_sheet_background"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_arrow_up"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toStartOf="@id/bottom_sheet_header_text_view"
+            app:layout_constraintTop_toTopOf="@id/bottom_sheet_background"
+            app:layout_constraintBottom_toBottomOf="@id/bottom_sheet_background"/>
+
+    <TextView
+            android:id="@+id/bottom_sheet_header_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Инструкция"
+            android:textSize="25sp"
+            android:textColor="@color/colorDarkGreen"
+            app:layout_constraintStart_toStartOf="@id/bottom_sheet_background"
+            app:layout_constraintEnd_toEndOf="@id/bottom_sheet_background"
+            app:layout_constraintTop_toTopOf="@id/bottom_sheet_background"
+            app:layout_constraintBottom_toBottomOf="@id/bottom_sheet_background"/>
+
+    <TextView
+            android:id="@+id/instruction_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/instruction"
+            android:textColor="@color/colorGainsboro"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="20dp"
+            android:textAlignment="viewStart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bottom_sheet_background"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
